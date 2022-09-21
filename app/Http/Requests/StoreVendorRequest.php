@@ -30,7 +30,7 @@ class StoreVendorRequest extends FormRequest
             // 'vendor_id'=> 'required',
             'name' => 'required',
             'company_name' => 'required',
-            'email' => ['required', 'email', Rule::unique('vendors', 'email')],
+            'email' => ['required', 'email', Rule::unique('vendors', 'email'), 'unique:users,email'],
             'password' => ['confirmed',RulesPassword::min(8)->letters()->mixedCase()->symbols()->numbers()],
             'password_confirmation' => 'required',
             'address' => 'required',

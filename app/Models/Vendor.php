@@ -11,11 +11,12 @@ use Laravel\Sanctum\HasApiTokens;
 
 class vendor extends Authenticatable
 {
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    
     protected $primaryKey = 'vendor_id';
     public $incrementing = false;
     protected $keyType = 'string';
 
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     protected $fillable = [
         'vendor_id',

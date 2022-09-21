@@ -86,26 +86,26 @@ class AuthController extends Controller
         $guard = $this->getKey($request);
         if ($guard === null) return response()->json(['message' => 'Invalid credentials']);
 
-        auth()->guard($guard);
-
-        
+        auth()->shouldUse($guard);
 
         // dd($guard);
+
+        // dd($credentials);
         // $vendor = Vendor::where('email', $request->email)->first();
         // dd($vendor);
         //    $check = Hash::check('Kazobiora10.', $request->password);
         //    dd($check);
         // dd(Hash::check($credentials['password'], $vendor['password']));
-         if (Auth::guard($guard)->attempt($request->all(['email', 'password']))) { 
-                // $request->session()->regenerate();
-                // return redirect(route($guard));
-            }
+        //  if (Auth::guard($guard)->attempt($request->all(['email', 'password']))) { 
+        //         // $request->session()->regenerate();
+        //         // return redirect(route($guard));
+        //     }
         // dd($guard);
-        // if (Auth::attempt($credentials)) {
-        // }
-        dd(auth()->attempt($credentials));
+        if (Auth::attempt($credentials)) {
+        }
+        // dd(auth()->attempt($credentials));
         // $user = Auth::guard($guard)->user();
-        $token = $request->user()->createToken('AppToken')->plainTextToken;
+        $token = $request->user()->createToken('AppToken', $guard === 'vendor' ? ['viewUsers'] : ['viewVendors'])->plainTextToken;
         return  response()->json([
             'message' => 'You are now logged in',
             'token' => $token

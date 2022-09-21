@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckUserRole;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -43,6 +44,13 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+
+        //  'api' => [
+        //     'guard:sanctum',
+        //     // EnsureFrontendRequestsAreStateful::class,
+        //     'throttle:60,1',
+        //     \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        // ],
     ];
 
     /**
@@ -65,5 +73,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'abilities' => \Laravel\Sanctum\Http\Middleware\CheckAbilities::class,
         'ability' => \Laravel\Sanctum\Http\Middleware\CheckForAnyAbility::class,
+        'role'=> CheckUserRole::class,
+        'guard' => \App\Http\Middleware\SwitchGuard::class,
     ];
 }

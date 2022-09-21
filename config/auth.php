@@ -53,7 +53,7 @@ return [
         ],
         'vendor' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'vendors',
         ],
     ],
 

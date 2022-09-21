@@ -12,14 +12,16 @@ class MealController extends Controller
 {
     public function storeMeal(StoreMealRequest $request)
     {
-        // dd($request);
+        auth()->shouldUse('vendor');
+        dd(auth()->user());
         // $token = PersonalAccessToken::findToken($hashedTooken);
         $vendor_id = Auth::user()->vendor_id;
         $meal_id = "M" . mt_rand(1000, 9999);
         $file = $request->hasFile('meal_avatar') ? $request->file('meal_avatar')->store('mealAvatar', 'public') : '';
         meal::create($request->safe()->merge([
             'meal_id' => $meal_id,
-            'meal_avatar' => $file
+            'meal_avatar' => $file,
+            'vendor_id' => $vendor_id
 
         ])->all());
         // Alert::success('Course Created Successfully');
