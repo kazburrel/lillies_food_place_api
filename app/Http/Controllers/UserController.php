@@ -31,43 +31,19 @@ class UserController extends Controller
     {
         // $password = $request->password;
         // dd($password);
+        $user_id = "USER" . mt_rand(100000, 999999);
         $file = $request->hasFile('user_avatar') ? $request->file('user_avatar')->store('userAvatar', 'public') : '';
         User::create($request->safe()->merge([
+            'user_id' => $user_id,
             'user_avatar' => $file,
             'password' => Hash::make($request->password)
         ])->all());
 
         return  response()->json([
-            'message' => 'User Created Successfully',
+            'message' => 'User created successfully',
         ]);
     }
 
-    // public function authenticate(Request $request)
-    // {
-
-    //     $credentials = $request->validate([
-    //         'email' => ['required', 'email'],
-    //         'password' => ['required'],
-    //     ]);
-
-    //     $user = Vendor::where('email', $credentials['email'])->first();
-        
-    //     // dd($user);
-    //     // if (Auth::attempt($credentials)) { 
-    //     //     // $request->session()->regenerate();
-    //     //     return response()->json([
-    //     //         'message'=> 'Logged in'
-    //     //     ]);
-    //     // }
-    //     if (!$user || !Hash::check($credentials['password'], $user['password'])) {
-    //         return response([
-    //             'error' => 'some error'
-    //         ]);
-    //     }
-    //     // if (Auth::attempt($credentials)) {
-    //     // }
-    //     dd(auth()->attempt($credentials));
-    // }
 
     /**
      * Display the specified resource.

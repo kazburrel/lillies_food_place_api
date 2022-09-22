@@ -18,12 +18,12 @@ class VendorController extends Controller
         Vendor::create($request->safe()->merge([
             'vendor_id' => $vendor_id,
             'vendor_avatar' => $file,
-            'password' => Hash::make($request->password)    
+            'password' => Hash::make($request->password)
 
         ])->all());
 
         return Response()->json([
-            'message' => 'Vendor Created Successfully',
+            'message' => 'Vendor created successfully',
         ]);
     }
 

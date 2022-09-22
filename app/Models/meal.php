@@ -10,7 +10,11 @@ class meal extends Model
 {
     use HasFactory,SoftDeletes;
 
+    protected $primaryKey = 'meal_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
-        'vendor_id', 'meal_name', 'meal_details', 'meal_price', 'meal_avatar'
+        'meal_id','vendor_id', 'meal_name', 'meal_details', 'meal_price', 'meal_avatar'
     ];
 }

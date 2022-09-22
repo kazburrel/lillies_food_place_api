@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
-class StoreUsersRequest extends FormRequest
+class StoreAdminRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class StoreUsersRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email'=> ['required', 'email', Rule::unique('users', 'email'), 'unique:admins,email', 'unique:vendors,email'],
+            'email'=> ['required', 'email', Rule::unique('admins', 'email'), 'unique:users,email', 'unique:vendors,email'],
             'password' => ['confirmed',Password::min(8)->letters()->mixedCase()->symbols()->numbers()],
             'password_confirmation' => 'required',
             'user_avatar' => 'required'

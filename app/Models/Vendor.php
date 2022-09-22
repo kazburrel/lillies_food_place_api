@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class vendor extends Authenticatable
+class Vendor extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
     

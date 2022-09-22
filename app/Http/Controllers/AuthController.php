@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAuthRequest;
+use App\http\Service\SessionService;
+use App\Models\Admin;
 use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\PersonalAccessToken;
 
 // class AuthController extends Controller
 // {
@@ -51,6 +54,9 @@ class AuthController extends Controller
             'vendor' => [
                 'class' => Vendor::class,
             ],
+             'admin' => [
+                'class' => Admin::class,
+            ],
         ];
     }
 
@@ -82,34 +88,42 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-        
+
         $guard = $this->getKey($request);
+        // dd($guard);
         if ($guard === null) return response()->json(['message' => 'Invalid credentials']);
 
         auth()->shouldUse($guard);
 
-        // dd($guard);
-
-        // dd($credentials);
-        // $vendor = Vendor::where('email', $request->email)->first();
-        // dd($vendor);
-        //    $check = Hash::check('Kazobiora10.', $request->password);
-        //    dd($check);
-        // dd(Hash::check($credentials['password'], $vendor['password']));
-        //  if (Auth::guard($guard)->attempt($request->all(['email', 'password']))) { 
-        //         // $request->session()->regenerate();
-        //         // return redirect(route($guard));
-        //     }
-        // dd($guard);
         if (Auth::attempt($credentials)) {
         }
-        // dd(auth()->attempt($credentials));
-        // $user = Auth::guard($guard)->user();
-        $token = $request->user()->createToken('AppToken', $guard === 'vendor' ? ['viewUsers'] : ['viewVendors'])->plainTextToken;
+       
+        $token = $request->user()->createToken( $this->getUserTokName($guard))->plainTextToken;
         return  response()->json([
             'message' => 'You are now logged in',
             'token' => $token
         ]);
+    }
+
+    public function logout(Request $request){
+        // dd($request);
+
+        $user = SessionService::getUser($request);
+        $user->tokens()->delete();
+        return  response()->json([
+            'message' => 'You are now logged out',
+        ]);
+    }
+
+    private function getUserTokName($guard)
+    {
+        if ($guard === 'vendor') {
+           return 'vendorTok';
+        } elseif ($guard === 'user') {
+           return 'userTok';
+        } else {
+           return 'adminTok';
+        }
     }
 
     private function getKey($request)
