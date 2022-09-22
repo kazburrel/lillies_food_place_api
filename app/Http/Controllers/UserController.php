@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUsersRequest;
+use App\http\Service\SessionService;
 use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
@@ -31,10 +32,10 @@ class UserController extends Controller
     {
         // $password = $request->password;
         // dd($password);
-        $user_id = "USER" . mt_rand(100000, 999999);
+        $unique_id = "USER" . mt_rand(100000, 999999);
         $file = $request->hasFile('user_avatar') ? $request->file('user_avatar')->store('userAvatar', 'public') : '';
         User::create($request->safe()->merge([
-            'user_id' => $user_id,
+            'unique_id' => $unique_id,
             'user_avatar' => $file,
             'password' => Hash::make($request->password)
         ])->all());
@@ -54,6 +55,12 @@ class UserController extends Controller
     public function show($id)
     {
         return User::where('id', $id)->first();
+    }
+    
+    public function showUserdetails(Request $request)
+    {
+        $user = SessionService::getUser($request);
+        return $user;
     }
 
     /**

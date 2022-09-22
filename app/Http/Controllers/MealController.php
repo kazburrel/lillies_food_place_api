@@ -16,13 +16,13 @@ class MealController extends Controller
     {
         // auth()->shouldUse('vendor');
        $user = SessionService::getUser($request);
-    //    dd($user);
-        $meal_id = "MEAL" . mt_rand(1000, 9999);
+    //    dd($user->unique_id);
+        $unique_id = "MEAL" . mt_rand(1000, 9999);
         $file = $request->hasFile('meal_avatar') ? $request->file('meal_avatar')->store('mealAvatar', 'public') : '';
         meal::create($request->safe()->merge([
-            'meal_id' => $meal_id,
+            'unique_id' => $unique_id,
             'meal_avatar' => $file,
-            'vendor_id' => $user->vendor_id
+            'vendor' => $user->unique_id
 
         ])->all());
         // Alert::success('Course Created Successfully');

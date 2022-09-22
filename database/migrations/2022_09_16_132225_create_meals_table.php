@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('meals', function (Blueprint $table) {
             $table->id();
-            $table->string('vendor_id');
+            $table->string('unique_id');
+            $table->string('vendor');
             $table->string('meal_name');
             $table->string('meal_details');
             $table->string('meal_price');

@@ -14,8 +14,9 @@ class SessionService {
 
     }
 
-    public static function getBearerTok($request){
-        $bearerToken = $request->bearerToken();
-        $personalAccessToken = PersonalAccessToken::findToken($bearerToken);
-    }
+    // public static function getBearerTok($request){
+    //     $bearerToken = $request->bearerToken();
+    //    return  $personalAccessToken = PersonalAccessToken::findToken($bearerToken);
+    //     // $token_id = PersonalAccessToken::find($personalAccessToken)->first();
+    // }
 }

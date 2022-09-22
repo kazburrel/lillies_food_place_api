@@ -19,9 +19,9 @@ class CheckUserRole
      */
     public function handle(Request $request, Closure $next, $role) {
 
-        if ($role === 'user' && !User::find($request->user()->user_id));
-        if ($role === 'vendor' && !Vendor::find($request->user()->vendor_id));
-        if ($role === 'admin' && !Admin::find($request->user()->admin_id));
+        if ($role === 'user' && !User::find($request->user()->unique_id)) ;
+        if ($role === 'vendor' && !Vendor::find($request->user()->unique_id)) ;
+        if ($role === 'admin' && !Admin::find($request->user()->unique_id)) ;
             
     
 

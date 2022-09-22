@@ -8,13 +8,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class meal extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected $primaryKey = 'meal_id';
+    protected $primaryKey = 'unique_id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'meal_id','vendor_id', 'meal_name', 'meal_details', 'meal_price', 'meal_avatar'
+        'unique_id',
+        'vendor',
+        'meal_name',
+        'meal_details',
+        'meal_price',
+        'meal_avatar'
     ];
 }

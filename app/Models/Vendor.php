@@ -13,13 +13,13 @@ class Vendor extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
     
-    protected $primaryKey = 'vendor_id';
+    protected $primaryKey = 'unique_id';
     public $incrementing = false;
     protected $keyType = 'string';
 
 
     protected $fillable = [
-        'vendor_id',
+        'unique_id',
         'name',
         'company_name',
         'email',

@@ -14,12 +14,12 @@ class Admin extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    protected $primaryKey = 'admin_id';
+    protected $primaryKey = 'unique_id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'admin_id',
+        'unique_id',
         'name',
         'email',
         'password',

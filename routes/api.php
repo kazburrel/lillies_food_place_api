@@ -25,16 +25,20 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
     Route::post('meals', [MealController::class, 'storeMeal']);
     Route::post('logout', [AuthController::class, 'logout']);
+    // Route::post('meals', [MealController::class, 'storeMeal']);
     // Route::get('users', [UserController::class, 'index']);
+    Route::get('users', [UserController::class, 'index']);
     Route::get('users/{id}', [UserController::class, 'show']);
-    // Route::get('vendors', [VendorController::class, 'showVendor']);
+    Route::get('vendors', [VendorController::class, 'showVendor']);
+    Route::get('vendors/{id}', [VendorController::class, 'searchVendor']);
+    Route::get('admin/details', [AdminController::class, 'showAdminDetails']);
 });
 
 
 // USERS 
 Route::group(['middleware' => ['auth:sanctum', 'role:user']], function () {
+    Route::get('user/details', [UserController::class, 'showUserdetails']);
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::get('vendors', [VendorController::class, 'showVendor']);
     // Route::post('meals', [MealController::class, 'storeMeal']);
     // Route::get('users', [UserController::class, 'index']);
     // Route::get('users/{id}', [UserController::class, 'show']);
@@ -43,7 +47,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:user']], function () {
 
 // VENDORS
 Route::group(['middleware' => ['auth:sanctum', 'role:vendor']], function () {
-    Route::get('users', [UserController::class, 'index']);
+    Route::get('vendor/details', [VendorController::class, 'showVendorDetails']);
     Route::post('meals', [MealController::class, 'storeMeal']);
     Route::post('logout', [AuthController::class, 'logout']);
     // Route::get('users', [UserController::class, 'index']);

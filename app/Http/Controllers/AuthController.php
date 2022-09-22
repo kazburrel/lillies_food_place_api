@@ -106,9 +106,8 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request){
-        // dd($request);
-
         $user = SessionService::getUser($request);
+        // dd($user);
         $user->tokens()->delete();
         return  response()->json([
             'message' => 'You are now logged out',
