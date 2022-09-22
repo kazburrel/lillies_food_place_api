@@ -27,8 +27,8 @@ class CheckUserRole
         // if ($role === 'vendor' && !Vendor::find($request->user()->unique_id)) abort(401);
         // if ($role === 'admin' && !Admin::find($request->user()->unique_id)) abort(401);
 
-        if ($user->type === "vendor" && $role === "vendor") {
-        } elseif ($user->type === "user" && $role === "user") {
+        if ($user->type === "vendor" || "admin" && $role === "vendor" || "admin") {
+        } elseif ($user->type === "user" || "admin" && $role === "user" || "admin") {
         } elseif ($user->type === "admin" && $role === "admin") {
         } else {
 
