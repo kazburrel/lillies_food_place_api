@@ -26,7 +26,8 @@ class Vendor extends Authenticatable
         'password',
         'address',
         'phone',
-        'vendor_avatar'
+        'vendor_avatar',
+        'type'
     ];
 
 }

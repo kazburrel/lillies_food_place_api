@@ -19,7 +19,8 @@ class VendorController extends Controller
         Vendor::create($request->safe()->merge([
             'unique_id' => $unique_id,
             'vendor_avatar' => $file,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'type' => 'vendor'
 
         ])->all());
 

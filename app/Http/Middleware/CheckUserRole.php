@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\http\Service\SessionService;
 use App\Models\Admin;
 use App\Models\User;
 use App\Models\vendor;
@@ -17,18 +18,33 @@ class CheckUserRole
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, $role) {
+    public function handle(Request $request, Closure $next, $role)
+    {
 
-        if ($role === 'user' && !User::find($request->user()->unique_id)) ;
-        if ($role === 'vendor' && !Vendor::find($request->user()->unique_id)) ;
-        if ($role === 'admin' && !Admin::find($request->user()->unique_id)) ;
-            
-    
+        $user = SessionService::getUser($request);
+        // dd($user->type);
+        // if ($role === 'user' && !User::find($request->user()->unique_id)) abort(401);
+        // if ($role === 'vendor' && !Vendor::find($request->user()->unique_id)) abort(401);
+        // if ($role === 'admin' && !Admin::find($request->user()->unique_id)) abort(401);
+
+        if ($user->type === "vendor" && $role === "vendor") {
+        } elseif ($user->type === "user" && $role === "user") {
+        } elseif ($user->type === "admin" && $role === "admin") {
+        } else {
+
+            abort(401, 'Unauthorized action.');
+        }
 
         auth()->shouldUse($role);
-
-
         return $next($request);
+
+
+        // if ($this->auth->getUser()->type !== "admin") {
+        //     abort(403, 'Unauthorized action.');
+        // }
+        // return $next($request);
+
+        // auth()->shouldUse($role 
     }
 
     // public function handle(Request $request, Closure $next, $role) {

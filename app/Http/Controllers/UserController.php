@@ -37,7 +37,8 @@ class UserController extends Controller
         User::create($request->safe()->merge([
             'unique_id' => $unique_id,
             'user_avatar' => $file,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'type' => 'user'
         ])->all());
 
         return  response()->json([
@@ -56,7 +57,7 @@ class UserController extends Controller
     {
         return User::where('id', $id)->first();
     }
-    
+
     public function showUserdetails(Request $request)
     {
         $user = SessionService::getUser($request);
