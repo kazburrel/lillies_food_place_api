@@ -25,8 +25,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
     Route::post('meals', [MealController::class, 'storeMeal']);
     Route::post('logout', [AuthController::class, 'logout']);
-    // Route::post('meals', [MealController::class, 'storeMeal']);
-    // Route::get('users', [UserController::class, 'index']);
     Route::get('users', [UserController::class, 'index']);
     Route::get('users/{id}', [UserController::class, 'show']);
     Route::get('vendors', [VendorController::class, 'showVendor']);
@@ -39,10 +37,6 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
 Route::group(['middleware' => ['auth:sanctum', 'role:user']], function () {
     Route::get('user/details', [UserController::class, 'showUserdetails']);
     Route::post('logout', [AuthController::class, 'logout']);
-    // Route::post('meals', [MealController::class, 'storeMeal']);
-    // Route::get('users', [UserController::class, 'index']);
-    // Route::get('users/{id}', [UserController::class, 'show']);
-    // Route::get('vendors', [VendorController::class, 'showVendor']);
 });
 
 // VENDORS
@@ -50,9 +44,6 @@ Route::group(['middleware' => ['auth:sanctum', 'role:vendor']], function () {
     Route::get('vendor/details', [VendorController::class, 'showVendorDetails']);
     Route::post('meals', [MealController::class, 'storeMeal']);
     Route::post('logout', [AuthController::class, 'logout']);
-    // Route::get('users', [UserController::class, 'index']);
-    // Route::get('users/{id}', [UserController::class, 'show']);
-    // Route::get('vendors', [VendorController::class, 'showVendor']);
 });
 
 
@@ -63,8 +54,3 @@ Route::post('vendors', [VendorController::class, 'registerVendor']);
 Route::get('meals', [MealController::class, 'showMeal']);
 Route::get('meals/{id}', [MealController::class, 'searchMeal']);
 
-
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });

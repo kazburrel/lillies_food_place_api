@@ -22,11 +22,10 @@ class CheckUserRole
     {
 
         $user = SessionService::getUser($request);
-        // dd($user->type);
+             // dd($user->type);
         // if ($role === 'user' && !User::find($request->user()->unique_id)) abort(401);
         // if ($role === 'vendor' && !Vendor::find($request->user()->unique_id)) abort(401);
         // if ($role === 'admin' && !Admin::find($request->user()->unique_id)) abort(401);
-
         if ($user->type === "vendor" || "admin" && $role === "vendor" || "admin") {
         } elseif ($user->type === "user" || "admin" && $role === "user" || "admin") {
         } elseif ($user->type === "admin" && $role === "admin") {
