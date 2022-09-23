@@ -79,9 +79,7 @@ License: For each use you must have a valid license purchased only from above li
     </div>
     <!--end::Root-->
 
-    <!--end::Modal - Users Search-->
-    <!--end::Modals-->
-    <!--begin::Javascript-->
+ 
     <script>
         var hostUrl = "assets/";
     </script>

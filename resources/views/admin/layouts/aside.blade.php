@@ -129,14 +129,7 @@
                         <span class="menu-title">All Deliveries</span>
                     </a>
                 </div>
-                {{-- <div class="menu-item">
-                    <a class="menu-link" href="#">
-                        <span class="menu-bullet">
-                            <span class="bullet bullet-dot"></span>
-                        </span>
-                        <span class="menu-title">Add Courses</span>
-                    </a>
-                </div> --}}
+              
                 
                 {{-- <div class="menu-item">
                     <div class="menu-content pt-8 pb-2">
