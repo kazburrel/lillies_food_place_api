@@ -21,6 +21,5 @@
         </ul>
         <!--end::Menu-->
     </div>
-        {{-- hello today --}}
 
 </div>
