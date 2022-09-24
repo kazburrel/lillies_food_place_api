@@ -4,7 +4,8 @@
 <div class="post d-flex flex-column-fluid" id="kt_post">
     <!--begin::Container-->
     <div id="kt_content_container" class="container-xxl">
-        <!--begin::Card-->
+        <!--begin::Card--> 
+        {{-- hello today --}}
         <div class="card">
             <!--begin::Card header-->
             <div class="card-header border-0 pt-6">

@@ -19,6 +19,7 @@
                 <!--end::Svg Icon-->
             </div>
         </div>
+        {{-- hello today --}}
 
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
             <a href="../../demo1/dist/index.html" class="d-lg-none">
