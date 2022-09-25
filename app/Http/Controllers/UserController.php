@@ -30,6 +30,10 @@ class UserController extends Controller
      */
     public function registerUser(StoreUsersRequest $request)
     {
+        // $clientIP = request()->ip();
+        // $data = request()->location();   
+
+        //     dd($clientIP,$data );
         // $password = $request->password;
         // dd($password);
         $unique_id = "USER" . mt_rand(100000, 999999);
@@ -38,6 +42,7 @@ class UserController extends Controller
             'unique_id' => $unique_id,
             'user_avatar' => $file,
             'password' => Hash::make($request->password),
+            'status' => 1,
             'type' => 'user'
         ])->all());
 

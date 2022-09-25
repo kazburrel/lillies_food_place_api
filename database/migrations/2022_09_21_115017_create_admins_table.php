@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('unique_id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('type');
+            $table->string('address');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

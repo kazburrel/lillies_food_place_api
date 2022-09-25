@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('meal_details');
             $table->string('meal_price');
             $table->string('meal_avatar');
+            $table->boolean('status');
             $table->timestamps();
             $table->softDeletes();
         });

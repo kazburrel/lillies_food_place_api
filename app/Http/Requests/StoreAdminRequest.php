@@ -27,10 +27,11 @@ class StoreAdminRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email'=> ['required', 'email', Rule::unique('admins', 'email'), 'unique:users,email', 'unique:vendors,email'],
-            'password' => ['confirmed',Password::min(8)->letters()->mixedCase()->symbols()->numbers()],
+            'email' => ['required', 'email', Rule::unique('admins', 'email'), 'unique:users,email', 'unique:vendors,email'],
+            'password' => ['confirmed', Password::min(8)->letters()->mixedCase()->symbols()->numbers()],
             'password_confirmation' => 'required',
-            'user_avatar' => 'required'
+            'user_avatar' => 'required',
+            'address' => 'required',
         ];
     }
 }

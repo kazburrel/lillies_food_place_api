@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('address');
             $table->string('phone');
+            $table->boolean('status');
+            $table->string('type');
             $table->string('vendor_avatar');
             $table->timestamps();
             $table->softDeletes();

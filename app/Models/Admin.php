@@ -24,6 +24,8 @@ class Admin extends Authenticatable
         'email',
         'password',
         'admin_avatar',
-        'type'
+        'type',
+        'address',
+        'password'
     ];
 }

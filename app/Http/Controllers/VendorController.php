@@ -20,6 +20,7 @@ class VendorController extends Controller
             'unique_id' => $unique_id,
             'vendor_avatar' => $file,
             'password' => Hash::make($request->password),
+            'status' => 1, 
             'type' => 'vendor'
 
         ])->all());

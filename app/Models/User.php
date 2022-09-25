@@ -28,6 +28,9 @@ class User extends Authenticatable
         'unique_id',
         'name',
         'email',
+        'mobile',
+        'address',
+        'status',
         'password',
         'user_avatar',
         'type'

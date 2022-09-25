@@ -9,7 +9,7 @@
                 <div class="card-header pt-7">
                     <!--begin::Title-->
                     <h3 class="card-title align-items-center flex-column">
-                        <span class="card-label fw-bolder text-gray-800">ALL USERS</span>
+                        <span class="card-label fw-bolder text-gray-800">ALL VENDORS</span>
                         {{-- <span class="text-gray-400 mt-1 fw-bold fs-6">Avg. 57 orders per day</span> --}}
                     </h3>
                     <!--end::Title-->
@@ -18,7 +18,7 @@
                         <!--begin::Filters-->
                         <div class="d-flex flex-stack flex-wrap gap-4">
                             <!--begin::Search-->
-                            <form action="/admin/all_users" class="d-flex align-items-center">
+                            <form action="/admin/all_vendors" class="d-flex align-items-center">
                                 <div class="position-relative w-md-400px me-md-2">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                     <span
@@ -61,10 +61,11 @@
                             <!--begin::Table row-->
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0 ">
                                 <th class="text-center min-w-50px">S/N</th>
-                                <th class="text-center min-w-100px">CUSTOMER ID</th>
-                                <th class="text-center min-w-125px">NAME</th>
-                                <th class="text-center min-w-125px">EMAIL</th>
-                                <th class="text-center min-w-125px">STATUS</th>
+                                <th class="text-center min-w-100px">VENDOR ID</th>
+                                <th class="text-center min-w-115px">NAME</th>
+                                <th class="text-center min-w-115px">COMPANY NAME</th>
+                                <th class="text-center min-w-115px">EMAIL</th>
+                                <th class="text-center min-w-115px">STATUS</th>
                                 <th class="text-center min-w-100px">ADDRESS</th>
                                 <th class="text-center min-w-100px">MOBILE</th>
                                 <th class="text-center min-w-125px">CREATED DATE</th>
@@ -77,40 +78,45 @@
                         @php
                             $sn = 1;
                         @endphp
-                        @forelse ($users as $user)
+                        @forelse ($vendors as $vendor)
                             <tbody class="fw-bolder text-gray-600">
                                 <tr class="mb-3">
                                     <td class=" text-center border border-2">
                                         <span>{{ $sn++ }}</span>
                                     </td>
                                     <td class="text-center border border-2">
-                                        <span>{{ $user->unique_id }}</span>
+                                        <span>{{ $vendor->unique_id }}</span>
                                     </td>
                                     <td class="text-center border border-2">
-                                        <span>{{ $user->name }}</span>
+                                        <span>{{ $vendor->name }}</span>
                                         {{-- {{ $course->max_student > 200 ? '200+' : $course->max_student }} --}}
                                     </td>
                                     <td class="text-center border border-2">
-                                        <span>{{ $user->email }}</span>
+                                        <span>{{ $vendor->company_name }}</span>
+                                        {{-- {{ $course->max_student > 200 ? '200+' : $course->max_student }} --}}
                                     </td>
                                     <td class="text-center border border-2">
-                                        <span  class=" fw-bolder  d-block fs-7 p-1 px-2 {{ $user->status == true ? 'btn btn-light-success' : 'btn btn-light-danger' }}">{{ $user->status == true ? 'Active' : 'Locked' }}</span>
+                                        <span>{{ $vendor->email }}</span>
                                     </td>
                                     <td class="text-center border border-2">
-                                        <span>{{ $user->address }}</span>
+                                        <span
+                                            class=" fw-bolder  d-block fs-7 p-1 px-2 {{ $vendor->status == true ? 'btn btn-light-success' : 'btn btn-light-danger' }}">{{ $vendor->status == true ? 'Active' : 'Locked' }}</span>
                                     </td>
                                     <td class="text-center border border-2">
-                                        <span>{{ $user->mobile }}</span>
+                                        <span>{{ $vendor->address }}</span>
                                     </td>
-                                    
                                     <td class="text-center border border-2">
-                                        <span>{{ $user->created_at }}</span>
+                                        <span>{{ $vendor->phone }}</span>
+                                    </td>
+
+                                    <td class="text-center border border-2">
+                                        <span>{{ $vendor->created_at }}</span>
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-end flex-shrink-0">
                                             <div class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#kt_modal_add_user-{{ $user->unique_id }}">
+                                                data-bs-target="#kt_modal_add_user-{{ $vendor->unique_id }}">
                                                 <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                                                 <span class="svg-icon svg-icon-3 svg-icon-primary">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -127,7 +133,7 @@
                                             </div>
                                             <div class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#kt_modal_block_user{{ $user->unique_id }}">
+                                                data-bs-target="#kt_modal_block_user{{ $vendor->unique_id }}">
                                                 <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                                                 <span class="svg-icon svg-icon-3 svg-icon-warning">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -140,7 +146,7 @@
                                                 <!--end::Svg Icon-->
                                             </div>
                                             <a href="#" class="btn btn-icon btn-bg-light btn-sm"
-                                                data-bs-toggle="modal" data-bs-target="#kt_modal_1{{ $user->unique_id }}"
+                                                data-bs-toggle="modal" data-bs-target="#kt_modal_1{{ $vendor->unique_id }}"
                                                 data-kt-users-table-filter="delete_row">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                                 <span class="svg-icon svg-icon-3 svg-icon-danger">
@@ -162,7 +168,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <div class="modal fade" tabindex="-1" id="kt_modal_block_user{{ $user->unique_id }}">
+                                <div class="modal fade" tabindex="-1" id="kt_modal_block_user{{ $vendor->unique_id }}">
                                     <div class="modal-dialog">
                                         <div class="modal-content text-center">
                                             <div class="modal-header">
@@ -172,8 +178,8 @@
                                                 <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
                                                     data-bs-dismiss="modal" aria-label="Close">
                                                     <span class="svg-icon svg-icon-2x">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                            viewBox="0 0 24 24" fill="none">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none">
                                                             <rect opacity="0.5" x="6" y="17.3137"
                                                                 width="16" height="2" rx="1"
                                                                 transform="rotate(-45 6 17.3137)" fill="currentColor" />
@@ -187,19 +193,21 @@
                                             </div>
 
                                             <div class="modal-body">
-                                                <p>Are you sure you want to {{ $user->status == true ? 'block' : 'unblock' }}
-                                                    user?</p>
+                                                <p>Are you sure you want to
+                                                    {{ $vendor->status == true ? 'block' : 'unblock' }}
+                                                    vendor?</p>
                                             </div>
 
                                             <div class="modal-footer d-flex justify-content-center">
                                                 <button type="button" class="btn btn-light"
                                                     data-bs-dismiss="modal">Close</button>
-                                                <x-block href="/admin/all_users/{{ $user->unique_id }}" :status="$user->status" />
+                                                <x-block href="/admin/all_vendors/{{ $vendor->unique_id }}"
+                                                    :status="$vendor->status" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal fade" tabindex="-1" id="kt_modal_1{{ $user->unique_id }}">
+                                <div class="modal fade" tabindex="-1" id="kt_modal_1{{ $vendor->unique_id }}">
                                     <div class="modal-dialog">
                                         <div class="modal-content text-center">
                                             <div class="modal-header">
@@ -230,12 +238,12 @@
                                             <div class="modal-footer d-flex justify-content-center">
                                                 <button type="button" class="btn btn-light"
                                                     data-bs-dismiss="modal">Close</button>
-                                                <x-delete href="/admin/all_users/{{ $user->unique_id }}" />
+                                                <x-delete href="/admin/all_vendors/{{ $vendor->unique_id }}" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal fade" id="kt_modal_add_user-{{ $user->unique_id }}"
+                                <div class="modal fade" id="kt_modal_add_user-{{ $vendor->unique_id }}"
                                     aria-hidden="true">
                                     <!--begin::Modal dialog-->
                                     <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -267,14 +275,14 @@
                                             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                                                 <!--begin:Form-->
                                                 <form id="kt_modal_new_target_form" class="form"
-                                                    action="/admin/all_users/{{ $user->unique_id }}" method="POST"
+                                                    action="/admin/all_vendors/{{ $vendor->unique_id }}" method="POST"
                                                     enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')
                                                     <!--begin::Heading-->
                                                     <div class="mb-13 text-center">
                                                         <!--begin::Title-->
-                                                        <h1 class="mb-3">Update {{ $user->name }}
+                                                        <h1 class="mb-3">Update {{ $vendor->name }}
                                                             Details</h1>
                                                         <!--end::Title-->
                                                     </div>
@@ -291,14 +299,14 @@
                                                         <!--end::Label-->
                                                         <input type="text" class="form-control form-control-solid"
                                                             placeholder="Enter  Name" name="name"
-                                                            value="{{ old('name') ?? $user->name }}" />
+                                                            value="{{ old('name') ?? $vendor->name }}" />
                                                         @error('name')
                                                             <p class="text-danger">
                                                                 {{ $message }}
                                                             </p>
                                                         @enderror
                                                     </div>
-                                                    
+
                                                     <div class="d-flex flex-column mb-8 fv-row">
                                                         <!--begin::Label-->
                                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -310,14 +318,14 @@
                                                         <!--end::Label-->
                                                         <input type="email" class="form-control form-control-solid"
                                                             placeholder="Enter Department Name" name="email"
-                                                            value="{{ old('email') ?? $user->email }}" />
+                                                            value="{{ old('email') ?? $vendor->email }}" />
                                                         @error('email')
                                                             <p class="text-danger">
                                                                 {{ $message }}
                                                             </p>
                                                         @enderror
                                                     </div>
-                                            
+
                                                     <div class="d-flex flex-column mb-8 fv-row">
                                                         <!--begin::Label-->
                                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -328,15 +336,15 @@
                                                         </label>
                                                         <!--end::Label-->
                                                         <input type="number" class="form-control form-control-solid"
-                                                            placeholder="Enter Mobile No" name="mobile"
-                                                            value="{{ old('mobile') ?? $user->mobile }}" />
-                                                        @error('mobile')
+                                                            placeholder="Enter Mobile No" name="phone"
+                                                            value="{{ old('phone') ?? $vendor->phone }}" />
+                                                        @error('phone')
                                                             <p class="text-danger">
                                                                 {{ $message }}
                                                             </p>
                                                         @enderror
                                                     </div>
-                                                    
+
                                                     <div class="d-flex flex-column mb-8 fv-row">
                                                         <!--begin::Label-->
                                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -348,14 +356,14 @@
                                                         <!--end::Label-->
                                                         <input type="text" class="form-control form-control-solid"
                                                             placeholder="Enter Address" name="address"
-                                                            value="{{ old('address') ?? $user->address }}" />
+                                                            value="{{ old('address') ?? $vendor->address }}" />
                                                         @error('address')
                                                             <p class="text-danger">
                                                                 {{ $message }}
                                                             </p>
                                                         @enderror
                                                     </div>
-                                               
+
                                                     <!--end::Input group-->
                                                     <!--begin::Actions-->
                                                     <div class="text-center">

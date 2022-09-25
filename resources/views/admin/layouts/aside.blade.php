@@ -64,7 +64,7 @@
                     </a> 
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="#">
+                    <a class="menu-link" href="/admin/add_users">
                         <span class="menu-bullet">
                             <span class="bullet bullet-dot"></span>
                         </span>
@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="#">
+                    <a class="menu-link" href="/admin/all_vendors">
                         <span class="menu-bullet">
                             <span class="bullet bullet-dot"></span>
                         </span>
@@ -86,7 +86,7 @@
                     </a> 
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="#">
+                    <a class="menu-link" href="/admin/add_vendors">
                         <span class="menu-bullet">
                             <span class="bullet bullet-dot"></span>
                         </span>

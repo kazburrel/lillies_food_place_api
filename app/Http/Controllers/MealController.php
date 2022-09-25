@@ -22,7 +22,8 @@ class MealController extends Controller
         meal::create($request->safe()->merge([
             'unique_id' => $unique_id,
             'meal_avatar' => $file,
-            'vendor' => $user->unique_id
+            'vendor' => $user->unique_id,
+            'status' => 1
 
         ])->all());
         // Alert::success('Course Created Successfully');
