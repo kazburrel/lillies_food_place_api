@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAdminRequest;
 use App\http\Service\SessionService;
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
@@ -30,5 +32,11 @@ class AdminController extends Controller
     {
         $user = SessionService::getUser($request);
         return $user;
+    }
+     public function destroyUser(User $user)
+    {
+        $user->delete();
+        Alert::success('User deleted successfully');
+        return redirect()->back();
     }
 }

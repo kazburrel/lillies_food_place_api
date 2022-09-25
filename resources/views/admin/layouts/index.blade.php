@@ -79,7 +79,7 @@ License: For each use you must have a valid license purchased only from above li
     </div>
     <!--end::Root-->
 
- 
+
     <script>
         var hostUrl = "assets/";
     </script>
@@ -112,7 +112,7 @@ License: For each use you must have a valid license purchased only from above li
     <script src="{{ asset('admin_assets/js/custom/apps/ecommerce/customers/listing/listing.js') }}"></script>
     <script src="{{ asset('admin_assets/js/custom/apps/ecommerce/customers/listing/add.js') }}"></script>
     <script src="{{ asset('admin_assets/js/custom/apps/ecommerce/customers/listing/export.js') }}"></script>
-    <script src="assets/plugins/global/plugins.bundle.js"></script>
+    <script src="{{ asset('admin_assets/plugins/global/plugins.bundle.js') }}"></script>
     <!--end::Javascript-->
     @include('sweetalert::alert')
 

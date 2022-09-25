@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ViewController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +22,5 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/admin')->middleware([])->group(function() {
     Route::get('dashboard', [ViewController::class, 'dashboardView']);
     Route::get('all_users', [ViewController::class, 'usersView']);  
+    Route::delete('all_users/{user}', [AdminController::class, 'destroyUser'])->name('userDestroy');  
 });

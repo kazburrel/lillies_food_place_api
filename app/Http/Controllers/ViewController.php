@@ -12,8 +12,8 @@ class ViewController extends Controller
     }
     
     public function usersView(){
-
-        $users = User::all();
+        // Staff::search(request(key: 'search'))
+        $users = User::search(request(key: 'search'))->get();
         return view('admin.all_users', ['users'=>$users]);
     }
 }
