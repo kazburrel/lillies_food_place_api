@@ -82,6 +82,8 @@
                                     <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_customers_table .form-check-input" value="1" />
                                 </div>
                             </th>
+                            <th class="min-w-15px">S/N</th>
+                            <th class="min-w-125px">Customer ID</th>
                             <th class="min-w-125px">Customer Name</th>
                             <th class="min-w-125px">Email</th>
                             <th class="min-w-125px">Status</th>
@@ -93,6 +95,9 @@
                     </thead>
                     <!--end::Table head-->
                     <!--begin::Table body-->
+                    @php
+                        $sn = 1
+                    @endphp
                     <tbody class="fw-bold text-gray-600">
 
                        @forelse ($users as $user)
@@ -106,7 +111,13 @@
                         <!--end::Checkbox-->
                         <!--begin::Name=-->
                         <td>
-                            <a href="../../demo1/dist/apps/ecommerce/customers/details.html" class="text-gray-800 text-hover-primary mb-1">Emma Smith</a>
+                            {{ $sn ++ }}
+                        </td> 
+                        <td>
+                           {{ $user->unique_id }}
+                        </td> 
+                        <td>
+                           {{ $user->name }}
                         </td>
                         <!--end::Name=-->
                         <!--begin::Email=-->
