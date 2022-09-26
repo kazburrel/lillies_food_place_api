@@ -26,7 +26,7 @@ Route::prefix('/admin')->middleware([])->group(function() {
     Route::get('all_users', [ViewController::class, 'usersView']);  
     Route::put('all_users/{user}', [AdminController::class, 'updateUser']);  
     Route::get('add_users', [ViewController::class, 'addUsersView']);
-    Route::post('add_users', [UserController::class, 'registerUser']);
+    Route::post('add_users', [AdminController::class, 'registerUser']);
     Route::delete('all_users/{user}', [AdminController::class, 'destroyUser'])->name('userDestroy');  
     Route::get('/all_users/{user}', [AdminController::class, 'blockUser']);
 
@@ -36,6 +36,6 @@ Route::prefix('/admin')->middleware([])->group(function() {
     Route::delete('all_vendors/{vendor}', [AdminController::class, 'destroyVendor']);  
     Route::put('all_vendors/{vendor}', [AdminController::class, 'updateVendor']);
     Route::get('add_vendors', [ViewController::class, 'addVendorView']);
-    Route::post('add_vendors', [VendorController::class, 'registerVendor']);
+    Route::post('add_vendors', [AdminController::class, 'registerVendor']);
 
 });

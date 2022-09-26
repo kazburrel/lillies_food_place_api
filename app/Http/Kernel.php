@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\CheckUserRole;
+use App\Http\Middleware\CheckUserStatus;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -75,5 +76,6 @@ class Kernel extends HttpKernel
         'ability' => \Laravel\Sanctum\Http\Middleware\CheckForAnyAbility::class,
         'role'=> CheckUserRole::class,
         'guard' => \App\Http\Middleware\SwitchGuard::class,
+        'status'=> CheckUserStatus::class,
     ];
 }

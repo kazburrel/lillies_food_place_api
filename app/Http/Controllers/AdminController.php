@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAdminRequest;
+use App\Http\Requests\StoreUsersRequest;
 use App\Http\Requests\StoreUsersUpdateRequest;
+use App\Http\Requests\StoreVendorRequest;
 use App\Http\Requests\StoreVendorUpdateRequest;
 use App\http\Service\SessionService;
 use App\Models\Admin;
@@ -35,6 +37,30 @@ class AdminController extends Controller
     {
         $user = SessionService::getUser($request);
         return $user;
+    }
+
+    // USER
+
+    public function registerUser(StoreUsersRequest $request)
+    {
+        // $clientIP = request()->ip();
+        // $data = request()->location();   
+
+        //     dd($clientIP,$data );
+        // $password = $request->password;
+        // dd($password);
+        $unique_id = "USER" . mt_rand(100000, 999999);
+        $file = $request->hasFile('user_avatar') ? $request->file('user_avatar')->store('userAvatar', 'public') : '';
+        User::create($request->safe()->merge([
+            'unique_id' => $unique_id,
+            'user_avatar' => $file,
+            'password' => Hash::make($request->password),
+            'status' => 1,
+            'type' => 'user'
+        ])->all());
+
+        Alert::success('User created successfully');
+        return redirect()->back();
     }
 
     public function destroyUser(User $user)
@@ -72,6 +98,22 @@ class AdminController extends Controller
 
     // VENDORS
 
+    public function registerVendor(StoreVendorRequest $request)
+    {
+        $unique_id = "VEN" . mt_rand(100000, 999999);
+        $file = $request->hasFile('vendor_avatar') ? $request->file('vendor_avatar')->store('vendorAvatar', 'public') : '';
+        Vendor::create($request->safe()->merge([
+            'unique_id' => $unique_id,
+            'vendor_avatar' => $file,
+            'password' => Hash::make($request->password),
+            'status' => 1, 
+            'type' => 'vendor'
+
+        ])->all());
+
+        Alert::success('Vendor created Successfully');
+        return redirect()->back();
+    }
 
     public function blockVendor(Vendor $vendor)
     {

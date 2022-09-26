@@ -20,6 +20,7 @@ class meal extends Model
         'meal_name',
         'meal_details',
         'meal_price',
-        'meal_avatar'
+        'meal_avatar',
+        'status'
     ];
 }

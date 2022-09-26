@@ -42,7 +42,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:user']], function () {
 // VENDORS
 Route::group(['middleware' => ['auth:sanctum', 'role:vendor']], function () {
     Route::get('vendor/details', [VendorController::class, 'showVendorDetails']);
-    Route::post('meals', [MealController::class, 'storeMeal']);
+    Route::post('meals', [MealController::class, 'storeMeal'])->middleware('status');
     Route::post('logout', [AuthController::class, 'logout']);
 });
 
