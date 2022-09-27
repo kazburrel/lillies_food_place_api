@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use App\http\Service\SessionService;
+use App\Models\User;
+use App\Models\Vendor;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -18,12 +20,15 @@ class CheckUserStatus
     public function handle(Request $request, Closure $next)
     {
 
-        $user = SessionService::getUser($request);
-        // dd($user->status === 1);
-        if ($user->status === 1) {
-            return $next($request);
-        } 
-        abort(401, 'You have been suspended, please contact Admin.');
+        // $user = SessionService::getUser($request);
+        // dd($request->email);
+        // $status = Vendor::where($request->email, 'email');
+        // dd($status);
+        
+        // if ($request->status === 0) {
+        //     return abort(401, 'You have been suspended, please contact Admin.');
+        // } 
+        // return $next($request);
         
     }
 }
