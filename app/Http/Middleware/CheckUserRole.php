@@ -22,18 +22,8 @@ class CheckUserRole
     {
 
         $user = SessionService::getUser($request);
-             dd($user->type);
-        // if ($role === 'user' && !User::find($request->user()->unique_id)) abort(401);
-        // if ($role === 'vendor' && !Vendor::find($request->user()->unique_id)) abort(401);
-        // if ($role === 'admin' && !Admin::find($request->user()->unique_id)) abort(401);
-        if ($user->type === "vendor" || "admin" && $role === "vendor" || "admin") {
-        } elseif ($user->type === "user" || "admin" && $role === "user" || "admin") {
-        } elseif ($user->type === "admin" && $role === "admin") {
-        } else {
 
-            abort(401, 'Unauthorized action.');
-        }
-
+        if(!$user || $user->type !== $role) abort(401, 'Unauthorized action');
         auth()->shouldUse($role);
         return $next($request);
     }

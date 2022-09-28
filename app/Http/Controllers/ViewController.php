@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\meal;
 use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class ViewController extends Controller
     {
         // Staff::search(request(key: 'search'))
         $users = User::search(request(key: 'search'))->get();
+        $users = $users->sortBy('created_at');
         return view('admin.all_users', ['users' => $users]);
     }
 
@@ -29,11 +31,22 @@ class ViewController extends Controller
     {
 
         $vendors = Vendor::search(request(key: 'search'))->get();
+        $vendors = $vendors->sortBy('created_at');
         // dd($vendors);
         return view('admin.all_vendors', ['vendors' => $vendors]);
     }
 
-    public function addVendorView(){
+    public function addVendorView()
+    {
         return view('admin.add_vendors');
+    }
+
+    public function mealsview()
+    {
+        $meals = meal::search(request(key: 'search'))->get();
+        $meals = $meals->sortBy('created_at');
+        // $meals::with('vendordets');
+        // dd($meals);
+        return view('admin.all_meals', ['meals' => $meals]);
     }
 }

@@ -115,6 +115,27 @@
                         <span class="menu-title">All Sales</span>
                     </a>
                 </div>
+                 <div class="menu-item">
+                    <div class="menu-content pt-8 pb-2">
+                        <span class="menu-section text-muted text-uppercase fs-8 ls-1">Meals</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link" href="/admin/all_meals">
+                        <span class="menu-bullet">
+                            <span class="bullet bullet-dot"></span>
+                        </span>
+                        <span class="menu-title">All Meals</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link" href="#">
+                        <span class="menu-bullet">
+                            <span class="bullet bullet-dot"></span>
+                        </span>
+                        <span class="menu-title">Add Meal</span>
+                    </a>
+                </div>
               
                 <div class="menu-item">
                     <div class="menu-content pt-8 pb-2">

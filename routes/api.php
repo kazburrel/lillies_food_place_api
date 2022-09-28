@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MealController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\VendorController;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -53,4 +54,4 @@ Route::post('login', [AuthController::class, 'authenticate']);
 Route::post('vendors', [VendorController::class, 'registerVendor']);
 Route::get('meals', [MealController::class, 'showMeal']);
 Route::get('meals/{id}', [MealController::class, 'searchMeal']);
-
+Route::post('/pay', [PaymentController::class, 'redirectToGateway'])->name('pay');

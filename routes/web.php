@@ -38,4 +38,8 @@ Route::prefix('/admin')->middleware([])->group(function() {
     Route::get('add_vendors', [ViewController::class, 'addVendorView']);
     Route::post('add_vendors', [AdminController::class, 'registerVendor']);
 
+
+    // MEALS
+    Route::get('all_meals', [ViewController::class, 'mealsview']);
+
 });

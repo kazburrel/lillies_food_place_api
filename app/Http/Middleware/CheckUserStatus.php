@@ -20,8 +20,8 @@ class CheckUserStatus
     public function handle(Request $request, Closure $next)
     {
 
-        // $user = SessionService::getUser($request);
-        if ($request->status === 0) {
+        $user = SessionService::getUser($request);
+        if ($user->status === 0) {
             return abort(401, 'You have been suspended, please contact Admin.');
         } 
         return $next($request);
