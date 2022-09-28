@@ -88,13 +88,8 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-
         $guard = $this->getKey($request);
-        dd($this->getKey($request));
         if ($guard === null) return response()->json(['message' => 'Invalid credentials']);
-        $stats = $guard::where('email', $request->email)->first();
-        dd($stats);
-
         auth()->shouldUse($guard);
 
         if (Auth::attempt($credentials)) {

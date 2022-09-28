@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a26f15327829a1087165119aaf66f82e",
+    "content-hash": "dea6a16d17c9c165a4c2d0f5f10a5834",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -145,6 +145,59 @@
                 }
             ],
             "time": "2022-08-10T22:54:19+00:00"
+        },
+        {
+            "name": "dev-techguy/laravel-multiple-guards",
+            "version": "v1.1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dev-techguy/laravel-multiple-guards.git",
+                "reference": "c5a4eea01221050636ccac3d3d7e9fd23b275d36"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dev-techguy/laravel-multiple-guards/zipball/c5a4eea01221050636ccac3d3d7e9fd23b275d36",
+                "reference": "c5a4eea01221050636ccac3d3d7e9fd23b275d36",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.7|^5.8|^6.0|^7.0|^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "LaravelMultipleGuards\\LaravelMultipleGuardsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelMultipleGuards\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "vincent-ososi",
+                    "email": "vincent@shiftech.co.ke"
+                }
+            ],
+            "description": "This library helps one to handle multiple guards. Read through the read me.",
+            "keywords": [
+                "Authentication",
+                "guards",
+                "laravel",
+                "multiple"
+            ],
+            "support": {
+                "issues": "https://github.com/dev-techguy/laravel-multiple-guards/issues",
+                "source": "https://github.com/dev-techguy/laravel-multiple-guards/tree/v1.1.8"
+            },
+            "time": "2022-02-11T16:43:11+00:00"
         },
         {
             "name": "dflydev/dot-access-data",

@@ -21,14 +21,10 @@ class CheckUserStatus
     {
 
         // $user = SessionService::getUser($request);
-        // dd($request->email);
-        // $status = Vendor::where($request->email, 'email');
-        // dd($status);
-        
-        // if ($request->status === 0) {
-        //     return abort(401, 'You have been suspended, please contact Admin.');
-        // } 
-        // return $next($request);
+        if ($request->status === 0) {
+            return abort(401, 'You have been suspended, please contact Admin.');
+        } 
+        return $next($request);
         
     }
 }
