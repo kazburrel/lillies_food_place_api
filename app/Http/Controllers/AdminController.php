@@ -9,6 +9,7 @@ use App\Http\Requests\StoreVendorRequest;
 use App\Http\Requests\StoreVendorUpdateRequest;
 use App\http\Service\SessionService;
 use App\Models\Admin;
+use App\Models\meal;
 use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
@@ -143,6 +144,16 @@ class AdminController extends Controller
         ])->all());
 
         Alert::success('Vendor updated Successfully');
+        return redirect()->back();
+    }
+
+    //MEALS
+
+    public function status(meal $meal){
+        // dd($meal);
+
+        $meal->status = !$meal->status;
+        $meal->save();
         return redirect()->back();
     }
 }

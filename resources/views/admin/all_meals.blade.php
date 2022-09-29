@@ -95,7 +95,7 @@
                                   
                                     <td class="text-center border border-2">
                                         <span
-                                            class=" fw-bolder  d-block fs-7 p-1 px-2 {{ $meal->status == true ? 'btn btn-light-success' : 'btn btn-light-danger' }}">{{ $meal->status == true ? 'Active' : 'Locked' }}</span>
+                                            class=" fw-bolder  d-block fs-7 p-1 px-2 {{ $meal->status == true ? 'btn btn-light-success' : 'btn btn-light-danger' }}">{{ $meal->status == true ? 'In-Stock' : 'Out-Of-Stock' }}</span>
                                     </td>
                                     <td class="text-center border border-2">
                                         <span>{{ Date::parse($meal->created_at)->format('jS, F Y') }}</span>
@@ -121,7 +121,7 @@
                                             </div>
                                             <div class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#kt_modal_block_meal{{ $meal->unique_id }}">
+                                                data-bs-target="#kt_modal_status_meal{{ $meal->unique_id }}">
                                                 <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                                                 <span class="svg-icon svg-icon-3 svg-icon-warning">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -156,7 +156,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <div class="modal fade" tabindex="-1" id="kt_modal_block_user{{ $meal->unique_id }}">
+                                <div class="modal fade" tabindex="-1" id="kt_modal_status_meal{{ $meal->unique_id }}">
                                     <div class="modal-dialog">
                                         <div class="modal-content text-center">
                                             <div class="modal-header">
@@ -182,15 +182,19 @@
 
                                             <div class="modal-body">
                                                 <p>Are you sure you want to
-                                                    {{ $meal->status == true ? 'block' : 'unblock' }}
+                                                    {{ $meal->status == true ? 'Take Out Of Stock' : 'Put Back In Stock' }}
                                                     meal?</p>
                                             </div>
 
                                             <div class="modal-footer d-flex justify-content-center">
                                                 <button type="button" class="btn btn-light"
                                                     data-bs-dismiss="modal">Close</button>
-                                                <x-block href="/admin/all_meals/{{ $meal->unique_id }}"
-                                                    :status="$meal->status" />
+                                                {{-- <x-block href="/admin/all_meals/{{ $meal->unique_id }}"
+                                                    :status="$meal->status" /> --}}
+                                                     <form action="/admin/all_meals/{{ $meal->unique_id }}" method="GET">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-danger">{{$meal->status == true ? 'Out-Of-Stock' : 'In-Stock'}}</button>
+                                                    </form>
                                             </div>
                                         </div>
                                     </div>

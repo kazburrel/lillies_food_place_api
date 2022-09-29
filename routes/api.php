@@ -54,4 +54,5 @@ Route::post('login', [AuthController::class, 'authenticate']);
 Route::post('vendors', [VendorController::class, 'registerVendor']);
 Route::get('meals', [MealController::class, 'showMeal']);
 Route::get('meals/{id}', [MealController::class, 'searchMeal']);
-Route::post('/pay', [PaymentController::class, 'redirectToGateway'])->name('pay');
+// Route::post('/pay', [PaymentController::class, 'redirectToGateway'])->name('pay');
+// Route::get('/payment/callback', [PaymentController::class, 'handleGatewayCallback']);
