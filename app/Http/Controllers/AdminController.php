@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUsersRequest;
 use App\Http\Requests\StoreUsersUpdateRequest;
 use App\Http\Requests\StoreVendorRequest;
 use App\Http\Requests\StoreVendorUpdateRequest;
+use App\Http\Requests\StorMealUpdateRequest;
 use App\http\Service\SessionService;
 use App\Models\Admin;
 use App\Models\meal;
@@ -70,6 +71,7 @@ class AdminController extends Controller
         Alert::success('User deleted successfully');
         return redirect()->back();
     } 
+    
    
 
     public function blockUser(User $user)
@@ -146,6 +148,7 @@ class AdminController extends Controller
         Alert::success('Vendor updated Successfully');
         return redirect()->back();
     }
+    
 
     //MEALS
 
@@ -154,6 +157,25 @@ class AdminController extends Controller
 
         $meal->status = !$meal->status;
         $meal->save();
+        return redirect()->back();
+    }
+
+    public function destroyMeal(meal $meal)
+    {
+        $meal->delete();
+        Alert::success('Meal deleted successfully');
+        return redirect()->back();
+    } 
+
+    public function updateMeal(StorMealUpdateRequest $request, meal $meal)
+    {
+
+        $file = $request->hasFile('meal_avatar') ? $request->file('meal_avatar')->store('mealAvatar', 'public') : $meal->meal_avatar;
+        $meal->update($request->safe()->merge([
+            'meal_avatar' => $file,
+        ])->all());
+
+        Alert::success('Meal updated successfully');
         return redirect()->back();
     }
 }

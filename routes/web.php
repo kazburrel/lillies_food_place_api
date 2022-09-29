@@ -42,6 +42,8 @@ Route::prefix('/admin')->middleware([])->group(function() {
     // MEALS
     Route::get('all_meals', [ViewController::class, 'mealsview']);
     Route::post('add_meals', [AdminController::class, 'addMeal']);
-    Route::get('/all_meals/{meals}', [AdminController::class, 'status']);
+    Route::get('/all_meals/{meal}', [AdminController::class, 'status']);
+    Route::delete('all_meals/{meal}', [AdminController::class, 'destroyMeal']);
+    Route::put('all_meals/{meal}', [AdminController::class, 'updateMeal']);
 
 });

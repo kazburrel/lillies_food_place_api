@@ -64,6 +64,7 @@
                                 <th class="text-center min-w-100px">MEAL ID</th>
                                 <th class="text-center min-w-125px">VENDOR NAME</th>
                                 <th class="text-center min-w-125px">MEAL NAME</th>
+                                <th class="text-center min-w-25px">QUANTITY</th>
                                 <th class="text-center min-w-125px">STATUS</th>
                                 <th class="text-center min-w-125px">CREATED DATE</th>
                                 <th class="text-center min-w-100px">ACTION</th>
@@ -90,7 +91,9 @@
                                     </td>
                                     <td class="text-center border border-2">
                                         <span>{{ $meal->meal_name }}</span>
-                                        {{-- {{ $course->max_student > 200 ? '200+' : $course->max_student }} --}}
+                                    </td>
+                                     <td class="text-center border border-2">
+                                        <span>{{ $meal->quantity }}</span>
                                     </td>
                                   
                                     <td class="text-center border border-2">
@@ -193,7 +196,7 @@
                                                     :status="$meal->status" /> --}}
                                                      <form action="/admin/all_meals/{{ $meal->unique_id }}" method="GET">
                                                         @csrf
-                                                        <button type="submit" class="btn btn-danger">{{$meal->status == true ? 'Out-Of-Stock' : 'In-Stock'}}</button>
+                                                        <button type="submit" class="btn btn-danger">{{$meal->status === true ? 'Out-Of-Stock' : 'In-Stock'}}</button>
                                                     </form>
                                             </div>
                                         </div>
@@ -274,7 +277,7 @@
                                                     <!--begin::Heading-->
                                                     <div class="mb-13 text-center">
                                                         <!--begin::Title-->
-                                                        <h1 class="mb-3">Update {{ $meal->name }}
+                                                        <h1 class="mb-3">Update {{ $meal->meal_name }}
                                                             Details</h1>
                                                         <!--end::Title-->
                                                     </div>
@@ -290,9 +293,9 @@
                                                         </label>
                                                         <!--end::Label-->
                                                         <input type="text" class="form-control form-control-solid"
-                                                            placeholder="Enter  Name" name="name"
-                                                            value="{{ old('name') ?? $meal->name }}" />
-                                                        @error('name')
+                                                            placeholder="Enter  Name" name="meal_name"
+                                                            value="{{ old('meal_name') ?? $meal->meal_name }}" />
+                                                        @error('meal_name')
                                                             <p class="text-danger">
                                                                 {{ $message }}
                                                             </p>
@@ -302,54 +305,71 @@
                                                     <div class="d-flex flex-column mb-8 fv-row">
                                                         <!--begin::Label-->
                                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                            <span class="required">Email</span>
-                                                            <i class="fas fa-exclamation-circle ms-2 fs-7"
-                                                                data-bs-toggle="tooltip"
-                                                                title="Specify a target name for future usage and reference"></i>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <input type="email" class="form-control form-control-solid"
-                                                            placeholder="Enter Department Name" name="email"
-                                                            value="{{ old('email') ?? $meal->email }}" />
-                                                        @error('email')
-                                                            <p class="text-danger">
-                                                                {{ $message }}
-                                                            </p>
-                                                        @enderror
-                                                    </div>
-
-                                                    <div class="d-flex flex-column mb-8 fv-row">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                            <span class="required">Mobile No</span>
-                                                            <i class="fas fa-exclamation-circle ms-2 fs-7"
-                                                                data-bs-toggle="tooltip"
-                                                                title="Specify a target name for future usage and reference"></i>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <input type="number" class="form-control form-control-solid"
-                                                            placeholder="Enter Mobile No" name="mobile"
-                                                            value="{{ old('mobile') ?? $meal->mobile }}" />
-                                                        @error('mobile')
-                                                            <p class="text-danger">
-                                                                {{ $message }}
-                                                            </p>
-                                                        @enderror
-                                                    </div>
-
-                                                    <div class="d-flex flex-column mb-8 fv-row">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                            <span class="required">Address</span>
+                                                            <span class="required">Meal Description</span>
                                                             <i class="fas fa-exclamation-circle ms-2 fs-7"
                                                                 data-bs-toggle="tooltip"
                                                                 title="Specify a target name for future usage and reference"></i>
                                                         </label>
                                                         <!--end::Label-->
                                                         <input type="text" class="form-control form-control-solid"
-                                                            placeholder="Enter Address" name="address"
-                                                            value="{{ old('address') ?? $meal->address }}" />
-                                                        @error('address')
+                                                            placeholder="" name="meal_details"
+                                                            value="{{ old('meal_details') ?? $meal->meal_details }}" />
+                                                        @error('meal_details')
+                                                            <p class="text-danger">
+                                                                {{ $message }}
+                                                            </p>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="d-flex flex-column mb-8 fv-row">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                            <span class="required">Meal Price</span>
+                                                            <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                data-bs-toggle="tooltip"
+                                                                title="Specify a target name for future usage and reference"></i>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <input type="number" class="form-control form-control-solid"
+                                                            placeholder="" name="meal_price"
+                                                            value="{{ old('meal_price') ?? $meal->meal_price }}" />
+                                                        @error('meal_price')
+                                                            <p class="text-danger">
+                                                                {{ $message }}
+                                                            </p>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="d-flex flex-column mb-8 fv-row">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                            <span class="required">Meal Quantity</span>
+                                                            <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                data-bs-toggle="tooltip"
+                                                                title="Specify a target name for future usage and reference"></i>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <input type="number" class="form-control form-control-solid"
+                                                            placeholder="" name="quantity"
+                                                            value="{{ old('quantity') ?? $meal->quantity }}" />
+                                                        @error('quantity')
+                                                            <p class="text-danger">
+                                                                {{ $message }}
+                                                            </p>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="d-flex flex-column mb-8 fv-row">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                            <span class="required">Meal Avatar</span>
+                                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                                                title="Upload Profile Picture"></i>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <input type="file" class="form-control form-control-solid" placeholder="" name="meal_avatar"
+                                                            value="{{ old('meal_avatar') }}" />
+                                                        @error('meal_avatar')
                                                             <p class="text-danger">
                                                                 {{ $message }}
                                                             </p>
