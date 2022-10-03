@@ -16,10 +16,13 @@ return new class extends Migration
         Schema::create('order_meals', function (Blueprint $table) {
             $table->id();
             $table->string('unique_id');
-            $table->string('order_id');
+            // $table->string('order_id');
             $table->string('user_id');
+            $table->string('meal_id');
             $table->string('quantity');
+            $table->string('meal_name');
             $table->string('price');
+            $table->string('sub_total');
             $table->string('total_amount');
             $table->timestamps();
             $table->softDeletes();
