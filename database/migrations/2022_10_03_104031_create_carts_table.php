@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->string('user');
-            $table->string('price');
-            $table->string('user_address');
-            $table->string('user_phone');
-            $table->string('meal_name');
-            $table->string('quantity');
-            $table->string('total_price');
+            $table->string('user')->nullable();
+            $table->string('receiver_address')->nullable();
+            $table->string('receiver_phone')->nullable();
+            $table->string('meal')->nullable();
+            $table->string('total_price')->nullable();
             $table->timestamps(); 
             $table->softDeletes(); 
 
