@@ -94,17 +94,16 @@ class UserController extends Controller
         $getuser = SessionService::getUser($request);
         $user = $getuser->unique_id;
         $unique_id = "CART" . mt_rand(100000, 999999);
-        $request->meal = [];
         $meals = [];
-        for ($i = 0; $i < count($request->meal); $i++) {
-            $meals[] = [
-                'meal' => $request->meal[$i],
-            ];
+        foreach ($request->meal as  $dish) {
+                $meals = $request->meal;
+                $dish  = $meals;      
         }
-        // dd($request->meal);
-        dd($user, $unique_id, $request->all());
+        dd($dish, $request->all());
         Cart::create($request->safe()->merge([
-            'unique_id' => $unique_id
+            'user' => $user,
+            'unique_id' => $unique_id,
+            'meal'=> implode(",",$dish),
         ])->all());
 
         return  response()->json([
@@ -112,3 +111,4 @@ class UserController extends Controller
         ]);
     }
 }
+
