@@ -24,11 +24,11 @@ class StoreCartRequest extends FormRequest
     public function rules()
     {
         return [
-            'user'=>'required',
-            'receiver_address' => 'required',
-            'receiver_phone' => 'required',
-            'meal.*' => 'required',
-            'total_price' => 'required',
+            'user' => 'nullable',
+            'receiver_address' => 'nullable',
+            'receiver_phone' => 'nullable',
+            'meal.*' => 'nullable',
+            'total_price' => 'nullable',
         ];
     }
 }

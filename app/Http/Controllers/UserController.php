@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\StoreUsersRequest;
 use App\http\Service\SessionService;
+use App\Models\Cart;
 use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
@@ -30,12 +32,6 @@ class UserController extends Controller
      */
     public function registerUser(StoreUsersRequest $request)
     {
-        // $clientIP = request()->ip();
-        // $data = request()->location();   
-
-        //     dd($clientIP,$data );
-        // $password = $request->password;
-        // dd($password);
         $unique_id = "USER" . mt_rand(100000, 999999);
         $file = $request->hasFile('user_avatar') ? $request->file('user_avatar')->store('userAvatar', 'public') : '';
         User::create($request->safe()->merge([
@@ -90,5 +86,29 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function addToCart(StoreCartRequest $request)
+    {
+
+        $getuser = SessionService::getUser($request);
+        $user = $getuser->unique_id;
+        $unique_id = "CART" . mt_rand(100000, 999999);
+        $request->meal = [];
+        $meals = [];
+        for ($i = 0; $i < count($request->meal); $i++) {
+            $meals[] = [
+                'meal' => $request->meal[$i],
+            ];
+        }
+        // dd($request->meal);
+        dd($user, $unique_id, $request->all());
+        Cart::create($request->safe()->merge([
+            'unique_id' => $unique_id
+        ])->all());
+
+        return  response()->json([
+            'message' => 'Cart created successfully',
+        ]);
     }
 }

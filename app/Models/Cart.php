@@ -11,13 +11,16 @@ class Cart extends Model
 {
     use HasFactory, Searchable, SoftDeletes;
 
+    protected $primaryKey = 'unique_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
+        'unique_id',
         'user',
-        'price',
-        'user_address',
-        'user_phone',
-        'meal_name',
-        'quantity',
+        'receiver_address',
+        'receiver_phone',
+        'meal',
         'total_price',
     ];
 }
