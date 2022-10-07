@@ -18,6 +18,7 @@ class Cart extends Model
     protected $fillable = [
         'unique_id',
         'user',
+        'receiver_name',
         'receiver_address',
         'receiver_phone',
         'meal',

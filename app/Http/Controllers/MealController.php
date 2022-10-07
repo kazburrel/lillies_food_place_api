@@ -38,6 +38,13 @@ class MealController extends Controller
 
     public function searchMeal($id)
     {
-        return meal::where('id', $id)->first();
+        // dd("hi");
+        return meal::where('unique_id', $id)->first();
     }
+    
+    // public function searchMeal($id)
+    // {
+    //     // dd("hi");
+    //     return meal::where('unique_id', $id)->first();
+    // }
 }

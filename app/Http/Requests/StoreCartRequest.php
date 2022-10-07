@@ -25,6 +25,7 @@ class StoreCartRequest extends FormRequest
     {
         return [
             'user' => 'nullable',
+            'receiver_name' => 'nullable',
             'receiver_address' => 'nullable',
             'receiver_phone' => 'nullable',
             'meal.*' => 'nullable',

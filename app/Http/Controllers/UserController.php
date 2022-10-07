@@ -6,9 +6,13 @@ use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\StoreUsersRequest;
 use App\http\Service\SessionService;
 use App\Models\Cart;
+use App\Models\Cart_item;
+use App\Models\meal;
 use App\Models\User;
 use App\Models\Vendor;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -94,18 +98,36 @@ class UserController extends Controller
         $getuser = SessionService::getUser($request);
         $user = $getuser->unique_id;
         $unique_id = "CART" . mt_rand(100000, 999999);
-        $meals = [];
-        foreach ($request->meal as  $dish) {
-                $meals = $request->meal;
-                $dish  = $meals;      
-        }
-        dd($dish, $request->all());
-        Cart::create($request->safe()->merge([
+        $dish =  Arr::map($request->meal, function($value, $key) {
+                        return $value['meal_id'];
+                    });
+        $cart = Cart::create($request->safe()->merge([
             'user' => $user,
             'unique_id' => $unique_id,
-            'meal'=> implode(",",$dish),
+            'meal'=> json_encode($dish),
         ])->all());
 
+        foreach ($request->meal as $key => $value) {
+            $meal = meal::find($value['meal_id']);
+            if(!$meal || $value['quantity'] >= 0) throw new Exception(400, "The Requested Meal does not exist");
+            $unique_id = "CART_ITEM" . mt_rand(100000, 999999);
+            Cart_item::create([
+                'unique_id' => $unique_id,
+                'meal_id' => $value['meal_id'],
+                'cart_id' => $cart->unique_id,
+                'meal_thumb'=> $meal->meal_avatar,
+                'meal_name'=>$meal->meal_name,
+                'meal_price'=>$meal->meal_price,
+                'quantity'=> $value['quantity'],
+                'sub_total'=> $value['quantity'] * $meal->meal_price
+            ]);
+            $total = Cart_item::where('cart_id', $cart->unique_id)->sum('sub_total');
+            $order = Cart::find($cart->unique_id);
+            // dd($order);
+            $order->update([
+                'total_price'=> $total
+            ]);
+        }
         return  response()->json([
             'message' => 'Cart created successfully',
         ]);
