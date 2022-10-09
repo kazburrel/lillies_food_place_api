@@ -38,7 +38,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
 Route::group(['middleware' => ['auth:sanctum', 'role:user', 'status']], function () {
     Route::get('user/details', [UserController::class, 'showUserdetails']);
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('order', [UserController::class, 'addOrder']);
+    Route::post('order', [UserController::class, 'addOrder']); 
 });
 
 // VENDORS
