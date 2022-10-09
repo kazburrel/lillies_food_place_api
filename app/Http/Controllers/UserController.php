@@ -98,39 +98,47 @@ class UserController extends Controller
         $getuser = SessionService::getUser($request);
         $user = $getuser->unique_id;
         $unique_id = "CART" . mt_rand(100000, 999999);
-        $dish =  Arr::map($request->meal, function($value, $key) {
-                        return $value['meal_id'];
-                    });
+        $dish =  Arr::map($request->meal, function ($value, $key) {
+            return $value['meal_id'];
+        });
         $cart = Cart::create($request->safe()->merge([
             'user' => $user,
             'unique_id' => $unique_id,
-            'meal'=> json_encode($dish),
+            'meal' => json_encode($dish),
         ])->all());
 
-        foreach ($request->meal as $key => $value) {
-            $meal = meal::find($value['meal_id']);
-            if(!$meal || $value['quantity'] >= 0) throw new Exception(400, "The Requested Meal does not exist");
-            $unique_id = "CART_ITEM" . mt_rand(100000, 999999);
-            Cart_item::create([
-                'unique_id' => $unique_id,
-                'meal_id' => $value['meal_id'],
-                'cart_id' => $cart->unique_id,
-                'meal_thumb'=> $meal->meal_avatar,
-                'meal_name'=>$meal->meal_name,
-                'meal_price'=>$meal->meal_price,
-                'quantity'=> $value['quantity'],
-                'sub_total'=> $value['quantity'] * $meal->meal_price
-            ]);
-            $total = Cart_item::where('cart_id', $cart->unique_id)->sum('sub_total');
-            $order = Cart::find($cart->unique_id);
-            // dd($order);
-            $order->update([
-                'total_price'=> $total
-            ]);
-        }
+        try {
+                foreach ($request->meal as $key => $value) {
+                    $meal = meal::find($value['meal_id']);
+                    $qty = (int) $value['quantity'];
+                    
+                    if (!$meal || (int) $meal->quantity < $qty) throw new Exception("The Requested Meal does not exist", 400);
+                    $unique_id = "CART_ITEM" . mt_rand(100000, 999999);
+                    Cart_item::create([
+                        'unique_id' => $unique_id,
+                        'meal_id' => $value['meal_id'],
+                        'cart_id' => $cart->unique_id,
+                        'meal_thumb' => $meal->meal_avatar,
+                        'meal_name' => $meal->meal_name,
+                        'meal_price' => $meal->meal_price,
+                        'quantity' => $value['quantity'],
+                        'sub_total' => $value['quantity'] * $meal->meal_price
+                    ]);
+                    $total = Cart_item::where('cart_id', $cart->unique_id)->sum('sub_total');
+                    $order = Cart::find($cart->unique_id);
+                    // dd($order);
+                    $order->update([
+                        'total_price' => $total
+                    ]);
+                }
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'message' => $th->getMessage()
+                ], $th->getCode());
+            }
+        
         return  response()->json([
             'message' => 'Cart created successfully',
         ]);
     }
 }
-
