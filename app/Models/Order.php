@@ -7,25 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
-class Cart_item extends Model
+class Order extends Model
 {
+    use HasFactory, Searchable, SoftDeletes;
+
     protected $primaryKey = 'unique_id';
     public $incrementing = false;
     protected $keyType = 'string';
 
-    use HasFactory, SoftDeletes, Searchable;
-
     protected $fillable = [
         'unique_id',
-        'cart_id',
-        'meal_thumb',
-        'meal_name',
-        'meal_price',
-        'quantity',
-        'sub_total',
+        'user',
+        'receiver_name',
+        'receiver_address',
+        'receiver_phone',
+        'meal',
+        'total_price',
     ];
-
-    public function cartItems(){
-        return $this->belongsTo(Cart::class, 'cart_id', 'unique_id');
-    }
 }

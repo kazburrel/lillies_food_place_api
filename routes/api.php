@@ -38,7 +38,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
 Route::group(['middleware' => ['auth:sanctum', 'role:user', 'status']], function () {
     Route::get('user/details', [UserController::class, 'showUserdetails']);
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('cart', [UserController::class, 'addToCart']);
+    Route::post('order', [UserController::class, 'addOrder']);
 });
 
 // VENDORS
@@ -55,5 +55,5 @@ Route::post('login', [AuthController::class, 'authenticate']);
 Route::post('vendors', [VendorController::class, 'registerVendor']);
 Route::get('meals', [MealController::class, 'showMeal']);
 Route::get('mealsSearch/{id}', [MealController::class, 'searchMeal']);
-// Route::post('/pay', [PaymentController::class, 'redirectToGateway'])->name('pay');
-// Route::get('/payment/callback', [PaymentController::class, 'handleGatewayCallback']);
+Route::post('/pay', [PaymentController::class, 'redirectToGateway'])->name('pay');
+Route::get('/payment/callback', [PaymentController::class, 'handleGatewayCallback']);

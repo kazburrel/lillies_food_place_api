@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('carts', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('unique_id');
             $table->string('user')->nullable();
@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('total_price')->nullable();
             $table->timestamps(); 
             $table->softDeletes(); 
-
         });
     }
 
@@ -35,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carts');
+        Schema::dropIfExists('orders');
     }
 };

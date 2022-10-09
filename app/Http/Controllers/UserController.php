@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\StoreUsersRequest;
 use App\http\Service\SessionService;
-use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Cart_item;
 use App\Models\meal;
+use App\Models\OrderItem;
 use App\Models\User;
 use App\Models\Vendor;
 use Exception;
@@ -92,29 +93,30 @@ class UserController extends Controller
         //
     }
 
-    public function addToCart(StoreCartRequest $request)
+    public function addOrder(StoreCartRequest $request)
     {
+        // dd('hi');
 
         $getuser = SessionService::getUser($request);
         $user = $getuser->unique_id;
-        $unique_id = "CART" . mt_rand(100000, 999999);
+        $unique_id = "ORDER" . mt_rand(100000, 999999);
         $dish =  Arr::map($request->meal, function ($value, $key) {
             return $value['meal_id'];
         });
-        $cart = Cart::create($request->safe()->merge([
+        $cart = Order::create($request->safe()->merge([
             'user' => $user,
             'unique_id' => $unique_id,
             'meal' => json_encode($dish),
         ])->all());
-
         try {
                 foreach ($request->meal as $key => $value) {
+                    
                     $meal = meal::find($value['meal_id']);
                     $qty = (int) $value['quantity'];
-                    
-                    if (!$meal || (int) $meal->quantity < $qty) throw new Exception("The Requested Meal does not exist", 400);
+                    if (!$meal) throw new Exception("The Requested Meal does not exist", 400);
+                    if ((int) $meal->quantity < $qty) throw new Exception("Sorry we do not have up to this quantity", 400);
                     $unique_id = "CART_ITEM" . mt_rand(100000, 999999);
-                    Cart_item::create([
+                    OrderItem::create([
                         'unique_id' => $unique_id,
                         'meal_id' => $value['meal_id'],
                         'cart_id' => $cart->unique_id,
@@ -124,8 +126,8 @@ class UserController extends Controller
                         'quantity' => $value['quantity'],
                         'sub_total' => $value['quantity'] * $meal->meal_price
                     ]);
-                    $total = Cart_item::where('cart_id', $cart->unique_id)->sum('sub_total');
-                    $order = Cart::find($cart->unique_id);
+                    $total = OrderItem::where('cart_id', $cart->unique_id)->sum('sub_total');
+                    $order = Order::find($cart->unique_id);
                     // dd($order);
                     $order->update([
                         'total_price' => $total
@@ -138,7 +140,7 @@ class UserController extends Controller
             }
         
         return  response()->json([
-            'message' => 'Cart created successfully',
+            'message' => 'Order created successfully',
         ]);
     }
 }
