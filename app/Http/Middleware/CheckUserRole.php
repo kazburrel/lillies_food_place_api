@@ -23,6 +23,7 @@ class CheckUserRole
 
         $user = SessionService::getUser($request);
 
+        dd($user->type !== 'user');
         if(!$user || $user->type !== $role) abort(401, 'Unauthorized action');
         auth()->shouldUse($role);
         return $next($request);
