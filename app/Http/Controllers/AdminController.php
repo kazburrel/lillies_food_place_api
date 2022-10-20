@@ -85,13 +85,8 @@ class AdminController extends Controller
     {
 
         $file = $request->hasFile('user_avatar') ? $request->file('user_avatar')->store('userAvatar', 'public') : $user->user_avatar;
-        // $unique_id = "USER" . mt_rand(100000, 999999);
         $user->update($request->safe()->merge([
-            // 'unique_id' => $user->unique_id,
             'user_avatar' => $file,
-            // 'password' => Hash::make($request->password),
-            // 'status' => 1,
-            // 'type' => 'user'
         ])->all());
 
         Alert::success('User updated Successfully');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMealRequest;
+use App\Http\Requests\StoreMealUpdateRequest;
 use App\http\Service\SessionService;
 use App\Models\meal;
 use App\Models\Vendor;
@@ -29,6 +30,18 @@ class MealController extends Controller
         // Alert::success('Course Created Successfully');
         return response()->json([
             'message' => 'Meal Created Successfully'
+        ]);
+    }
+
+    public function updateMeal(StoreMealUpdateRequest $request, meal $id){
+
+        $file = $request->hasFile('meal_avatar') ? $request->file('meal_avatar')->store('userAvatar', 'public') : $id->meal_avatar;
+        $id->update($request->safe()->merge([
+            'meal_avatar' => $file,
+        ])->all());
+
+        return response()->json([
+            'message' => 'Meal updated Successfully'
         ]);
     }
 
