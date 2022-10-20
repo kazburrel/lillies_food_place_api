@@ -109,38 +109,46 @@ class UserController extends Controller
             'meal' => json_encode($dish),
         ])->all());
         try {
-                foreach ($request->meal as $key => $value) {
-                    
-                    $meal = meal::find($value['meal_id']);
-                    $qty = (int) $value['quantity'];
-                    if (!$meal) throw new Exception("The Requested Meal does not exist", 400);
-                    if ((int) $meal->quantity < $qty) throw new Exception("Sorry we do not have up to this quantity", 400);
-                    $unique_id = "CART_ITEM" . mt_rand(100000, 999999);
-                    OrderItem::create([
-                        'unique_id' => $unique_id,
-                        'meal_id' => $value['meal_id'],
-                        'cart_id' => $cart->unique_id,
-                        'meal_thumb' => $meal->meal_avatar,
-                        'meal_name' => $meal->meal_name,
-                        'meal_price' => $meal->meal_price,
-                        'quantity' => $value['quantity'],
-                        'sub_total' => $value['quantity'] * $meal->meal_price
-                    ]);
-                    $total = OrderItem::where('cart_id', $cart->unique_id)->sum('sub_total');
-                    $order = Order::find($cart->unique_id);
-                    // dd($order);
-                    $order->update([
-                        'total_price' => $total
-                    ]);
-                }
-            } catch (\Throwable $th) {
-                return response()->json([
-                    'message' => $th->getMessage()
-                ], $th->getCode());
+            foreach ($request->meal as $key => $value) {
+
+                $meal = meal::find($value['meal_id']);
+                $qty = (int) $value['quantity'];
+                if (!$meal) throw new Exception("The Requested Meal does not exist", 400);
+                if ((int) $meal->quantity < $qty) throw new Exception("Sorry we do not have up to this quantity", 400);
+                $unique_id = "CART_ITEM" . mt_rand(100000, 999999);
+                OrderItem::create([
+                    'unique_id' => $unique_id,
+                    'meal_id' => $value['meal_id'],
+                    'cart_id' => $cart->unique_id,
+                    'meal_thumb' => $meal->meal_avatar,
+                    'meal_name' => $meal->meal_name,
+                    'meal_price' => $meal->meal_price,
+                    'quantity' => $value['quantity'],
+                    'sub_total' => $value['quantity'] * $meal->meal_price
+                ]);
+                $total = OrderItem::where('cart_id', $cart->unique_id)->sum('sub_total');
+                $order = Order::find($cart->unique_id);
+                // dd($order);
+                $order->update([
+                    'total_price' => $total
+                ]);
             }
-        
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => $th->getMessage()
+            ], $th->getCode());
+        }
+
         return  response()->json([
             'message' => 'Order created successfully',
         ]);
+    }
+
+    public function makePaymentDetails(Request $request)
+    {
+
+        $user = SessionService::getUser($request);
+        $orders = Order::where('user', $user->unique_id)->get();
+        return $orders;
     }
 }

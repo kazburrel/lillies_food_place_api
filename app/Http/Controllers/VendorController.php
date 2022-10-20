@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVendorRequest;
 use App\http\Service\SessionService;
+use App\Models\meal;
 use App\Models\Vendor;
 // use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
@@ -37,7 +38,8 @@ class VendorController extends Controller
 
     public function searchVendor($id)
     {
-        return Vendor::where('id', $id)->first();
+
+        return Vendor::where('unique_id', $id)->first();
     }
 
     public function showVendorDetails(Request $request)
@@ -45,4 +47,10 @@ class VendorController extends Controller
         $user = SessionService::getUser($request);
         return $user;
     }
+
+    public function getVendoMeals($id){
+
+        return meal::where('vendor', $id)->get();
+    }
+   
 }

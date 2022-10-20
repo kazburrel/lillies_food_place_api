@@ -16,8 +16,8 @@ class MealController extends Controller
     public function storeMeal(StoreMealRequest $request)
     {
         // auth()->shouldUse('vendor');
-       $user = SessionService::getUser($request);
-    //    dd($user->unique_id);
+        $user = SessionService::getUser($request);
+        //    dd($user->unique_id);
         $unique_id = "MEAL" . mt_rand(1000, 9999);
         $file = $request->hasFile('meal_avatar') ? $request->file('meal_avatar')->store('mealAvatar', 'public') : '';
         meal::create($request->safe()->merge([
@@ -33,31 +33,32 @@ class MealController extends Controller
         ]);
     }
 
-    public function updateMeal(StoreMealUpdateRequest $request, meal $id){
+    // public function updateMeal($id){
+    //     $meal = $this->searchMeal($id);
+    //         dd($meal);
+    // }
 
-        $file = $request->hasFile('meal_avatar') ? $request->file('meal_avatar')->store('userAvatar', 'public') : $id->meal_avatar;
-        $id->update($request->safe()->merge([
+    public function updateMeal(StoreMealUpdateRequest $request,  $id)
+    {
+
+        $meal = $this->searchMeal($id);
+        $file = $request->hasFile('meal_avatar') ? $request->file('meal_avatar')->store('mealAvatar', 'public') : $meal->meal_avatar;
+        $meal->update($request->safe()->merge([
             'meal_avatar' => $file,
         ])->all());
 
         return response()->json([
-            'message' => 'Meal updated Successfully'
+            'message' => 'Meal updated successfully'
         ]);
     }
 
-    public function showMeal(){
+    public function showMeal()
+    {
         return meal::all();
     }
 
     public function searchMeal($id)
     {
-        // dd("hi");
         return meal::where('unique_id', $id)->first();
     }
-    
-    // public function searchMeal($id)
-    // {
-    //     // dd("hi");
-    //     return meal::where('unique_id', $id)->first();
-    // }
 }
