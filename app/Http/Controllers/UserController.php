@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCartRequest;
+use App\Http\Requests\StorePasswordUpdateRequest;
 use App\Http\Requests\StoreUsersRequest;
+use App\Http\Requests\StoreUsersUpdateRequest;
 use App\http\Service\SessionService;
 use App\Models\Order;
 use App\Models\Cart_item;
@@ -52,6 +54,33 @@ class UserController extends Controller
         ]);
     }
 
+    public function profileUpdate(StoreUsersUpdateRequest $request)
+    {
+        $user = SessionService::getUser($request);
+        $customer = User::find($user->unique_id);
+        $file = $request->hasFile('user_avatar') ? $request->file('user_avatar')->store('userAvatar', 'public') : $customer->user_avatar;
+        $customer->update($request->safe()->merge([
+            'user_avatar' => $file,
+        ])->all());
+
+        return response()->json([
+            'message' => 'Profile updated successfully'
+        ]);
+    }
+
+    public function passwordUpdate(StorePasswordUpdateRequest $request){
+
+        $user = SessionService::getUser($request);
+        $response = Hash::check($request->currentpassword, $user->password);
+        if (!$response)abort(401,'Your current password does not matche with the password.');
+        $user = User::find($user->unique_id);
+        $user->password = hash::make($request->get('newpassword'));
+        $user->save();
+        return response()->json([
+            'message' => 'Password updated successfully'
+        ]);
+
+    }
 
     /**
      * Display the specified resource.

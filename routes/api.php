@@ -21,28 +21,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::resource('users', UserController::class);
-// SUPER ADMIN
-Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
-    Route::post('meals', [MealController::class, 'storeMeal']);
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::get('users', [UserController::class, 'index']);
-    Route::get('users/{id}', [UserController::class, 'show']);
-    Route::get('vendors', [VendorController::class, 'showVendor']);
-    Route::get('vendors/{id}', [VendorController::class, 'searchVendor']);
-    Route::get('admin/details', [AdminController::class, 'showAdminDetails']);
-});
-
 
 // USERS 
 Route::group(['middleware' => ['auth:sanctum', 'role:user', 'status']], function () {
     Route::get('user/details', [UserController::class, 'showUserdetails']);
-    Route::post('order', [UserController::class, 'addOrder']); 
+    Route::post('order', [UserController::class, 'addOrder']);
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::get('vendors', [VendorController::class, 'showVendor']);
-    Route::get('vendors/{id}', [VendorController::class, 'searchVendor']);
-    Route::get('vendor_meal/{id}', [VendorController::class, 'getVendoMeals']);
     Route::get('order_payment/details', [UserController::class, 'makePaymentDetails']);
+    Route::post('update_profile/{id}', [UserController::class, 'profileUpdate']);
+    Route::post('update_password', [UserController::class, 'passwordUpdate']);
 });
 
 // VENDORS
@@ -51,19 +38,20 @@ Route::group(['middleware' => ['auth:sanctum', 'role:vendor', 'status']], functi
     Route::post('meals', [MealController::class, 'storeMeal']);
     Route::post('meal_update/{id}', [MealController::class, 'updateMeal']);
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::get('vendors', [VendorController::class, 'showVendor']);
-    Route::get('vendors/{id}', [VendorController::class, 'searchVendor']);
-    Route::get('vendor_meal/{id}', [VendorController::class, 'getVendoMeals']);
- 
-    
+    Route::post('update_profile/{id}', [VendorController::class, 'profileUpdate']);
 });
 
 
-Route::post('users', [UserController::class, 'registerUser']);
-Route::post('admin', [AdminController::class, 'registerAdmin']);
-Route::post('login', [AuthController::class, 'authenticate']);
-Route::post('vendors', [VendorController::class, 'registerVendor']);
-Route::get('all_meals', [MealController::class, 'showMeal']);
-Route::get('mealsSearch/{id}', [MealController::class, 'searchMeal']);
-Route::post('/pay', [PaymentController::class, 'redirectToGateway'])->name('pay');
-Route::get('/payment/callback', [PaymentController::class, 'handleGatewayCallback']);
+Route::group(['middleware' => ['guest']], function () {
+    Route::get('vendors', [VendorController::class, 'showVendor']);
+    Route::get('vendors/{id}', [VendorController::class, 'searchVendor']);
+    Route::get('vendor_meal/{id}', [VendorController::class, 'getVendoMeals']);
+    Route::post('users', [UserController::class, 'registerUser']);
+    Route::post('admin', [AdminController::class, 'registerAdmin']);
+    Route::post('login', [AuthController::class, 'authenticate']);
+    Route::post('vendors', [VendorController::class, 'registerVendor']);
+    Route::get('all_meals', [MealController::class, 'showMeal']);
+    Route::get('mealsSearch/{id}', [MealController::class, 'searchMeal']);
+    Route::post('/pay', [PaymentController::class, 'redirectToGateway'])->name('pay');
+    Route::get('/payment/callback', [PaymentController::class, 'handleGatewayCallback']);
+});

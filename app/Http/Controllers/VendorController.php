@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVendorRequest;
+use App\Http\Requests\StoreVendorUpdateRequest;
 use App\http\Service\SessionService;
 use App\Models\meal;
 use App\Models\Vendor;
@@ -53,4 +54,17 @@ class VendorController extends Controller
         return meal::where('vendor', $id)->get();
     }
    
+    public function profileUpdate(StoreVendorUpdateRequest $request)
+    {
+        $user = SessionService::getUser($request);
+        $vendor = Vendor::find($user->unique_id);
+        $file = $request->hasFile('vendor_avatar') ? $request->file('vendor_avatar')->store('vendorAvatar', 'public') : $vendor->vendor_avatar;
+        $vendor->update($request->safe()->merge([
+            'vendor_avatar' => $file,
+        ])->all());
+
+        return response()->json([
+            'message' => 'Profile updated successfully'
+        ]);
+    }
 }
