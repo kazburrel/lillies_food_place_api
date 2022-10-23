@@ -33,15 +33,10 @@ class MealController extends Controller
         ]);
     }
 
-    // public function updateMeal($id){
-    //     $meal = $this->searchMeal($id);
-    //         dd($meal);
-    // }
-
-    public function updateMeal(StoreMealUpdateRequest $request,  $id)
+    public function updateMeal(StoreMealUpdateRequest $request,  $meal)
     {
 
-        $meal = $this->searchMeal($id);
+        $meal = $this->searchMeal($meal);
         $file = $request->hasFile('meal_avatar') ? $request->file('meal_avatar')->store('mealAvatar', 'public') : $meal->meal_avatar;
         $meal->update($request->safe()->merge([
             'meal_avatar' => $file,
@@ -52,6 +47,15 @@ class MealController extends Controller
         ]);
     }
 
+    public function destroyMeal(meal $meal)
+    {
+// dd($meal);
+        $meal->delete();
+        return response()->json([
+            'message' => 'Meal deleted successfully'
+        ]);
+    }
+
     public function showMeal()
     {
         return meal::all();
@@ -59,6 +63,18 @@ class MealController extends Controller
 
     public function searchMeal($id)
     {
+
         return meal::where('unique_id', $id)->first();
+    }
+
+    public function fetchSingleMeal(meal $request)
+    {
+
+        $meals = meal::search(request(key: 'search'))->get();
+        $meals = $meals->sortBy('created_at');
+        return $meals;
+        // dd('hi');
+        //    return meal::where('meal_name', 'like', '%' . $request->search() . '%');
+        // return meal::filter(request(['search']));
     }
 }

@@ -36,6 +36,13 @@ class meal extends Model
     //     }
     // }
 
+    public function scopeFilter($query, array $filters)
+    {
+        if ($filters['search'] ?? false) {
+            $query->where('meal_name', 'like', '%' . request('search') . '%');
+        }
+    }
+
     public function toSearchableArray()
     {
         return [

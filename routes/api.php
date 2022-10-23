@@ -36,7 +36,8 @@ Route::group(['middleware' => ['auth:sanctum', 'role:user', 'status']], function
 Route::group(['middleware' => ['auth:sanctum', 'role:vendor', 'status']], function () {
     Route::get('vendor/details', [VendorController::class, 'showVendorDetails']);
     Route::post('meals', [MealController::class, 'storeMeal']);
-    Route::post('meal_update/{id}', [MealController::class, 'updateMeal']);
+    Route::post('meal_update/{meal}', [MealController::class, 'updateMeal']);
+    Route::post('meal_delete/{meal}', [MealController::class, 'destroyMeal']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('update_profile/{id}', [VendorController::class, 'profileUpdate']);
 });
@@ -52,6 +53,7 @@ Route::group(['middleware' => ['guest']], function () {
     Route::post('vendors', [VendorController::class, 'registerVendor']);
     Route::get('all_meals', [MealController::class, 'showMeal']);
     Route::get('mealsSearch/{id}', [MealController::class, 'searchMeal']);
+    Route::post('singleMealsSearch', [MealController::class, 'fetchSingleMeal']);
     Route::post('/pay', [PaymentController::class, 'redirectToGateway'])->name('pay');
     Route::get('/payment/callback', [PaymentController::class, 'handleGatewayCallback']);
 });
