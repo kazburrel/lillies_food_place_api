@@ -56,4 +56,6 @@ Route::group(['middleware' => ['guest']], function () {
     Route::post('singleMealsSearch', [MealController::class, 'fetchSingleMeal']);
     Route::post('/pay', [PaymentController::class, 'redirectToGateway'])->name('pay');
     Route::get('/payment/callback', [PaymentController::class, 'handleGatewayCallback']);
+    Route::post('subscribe', [UserController::class, 'subscribeToNewsletter']);
+    Route::post('unsubscribe', [UserController::class, 'unsubscribeToNewsletter']);
 });

@@ -158,7 +158,7 @@ class AdminController extends Controller
     public function destroyMeal(meal $meal)
     {
         $meal->delete();
-        Alert::success('Meal deleted successfully');
+        Alert::toast('Meal deleted successfully','success');
         return redirect()->back();
     } 
 

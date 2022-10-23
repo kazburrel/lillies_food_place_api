@@ -196,6 +196,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         Unicodeveloper\Paystack\PaystackServiceProvider::class,
+        Spatie\Newsletter\NewsletterServiceProvider::class,
 
 
     ],
@@ -214,6 +215,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
+        'Newsletter'=>Spatie\Newsletter\Facades\NewsletterServiceProvider::class,
+
 
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),

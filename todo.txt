@@ -1,7 +1,7 @@
 For user
 
 Endpoint for sign up and sign in ✅✅ user has same endoint for Login.
-Endpoint for mail subscription  ❌❌
+Endpoint for mail subscription  ✅✅
 Endpoint for meal order submission ✅✅ 
 Endpoint for profile details ✅✅
 Endpoint for list of vendors and their data ✅✅
@@ -10,14 +10,14 @@ Endpoint for Update password ✅✅
 Endpoint for User profile Update ✅✅
 Endpoint for Reset password at Login ❌❌
 Endpoint for Single meal Fetch ✅✅
-Endpoint Add to Fav Meal and Fetch Fav Meal
-Endpoint Add to Fav Vendor and Fetch Fav Vendor
+Endpoint Add to Fav Meal and Fetch Fav Meal ❌❌
+Endpoint Add to Fav Vendor and Fetch Fav Vendor ❌❌
 
 For vendor
 
 Endpoint for signup and sign in ✅✅
 Endpoint for submitting meals data ✅✅
 Endpoint for editing meals data ✅✅
-Endpoint for list of user orders...... Think this will be integrated after payment gateway is completed
+Endpoint for list of user orders...... Think this will be integrated after payment gateway is completed ❌❌
 Endpoint for Reset password ✅✅
 Endpoint for Delete Meal ✅✅

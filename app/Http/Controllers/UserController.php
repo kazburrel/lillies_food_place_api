@@ -18,6 +18,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Newsletter;
+use Spatie\Newsletter\NewsletterFacade;
 
 class UserController extends Controller
 {
@@ -68,18 +70,18 @@ class UserController extends Controller
         ]);
     }
 
-    public function passwordUpdate(StorePasswordUpdateRequest $request){
+    public function passwordUpdate(StorePasswordUpdateRequest $request)
+    {
 
         $user = SessionService::getUser($request);
         $response = Hash::check($request->currentpassword, $user->password);
-        if (!$response)abort(401,'Your current password does not matche with the password.');
+        if (!$response) abort(401, 'Your current password does not matche with the password.');
         $user = User::find($user->unique_id);
         $user->password = hash::make($request->get('newpassword'));
         $user->save();
         return response()->json([
             'message' => 'Password updated successfully'
         ]);
-
     }
 
     /**
@@ -179,5 +181,38 @@ class UserController extends Controller
         $user = SessionService::getUser($request);
         $orders = Order::where('user', $user->unique_id)->get();
         return $orders;
+    }
+
+    public function subscribeToNewsletter(Request $request)
+    {
+        $request->validate([
+            'subscriber_email' => 'required|email'
+        ]);
+        try {
+            if (NewsletterFacade::isSubscribed($request->subscriber_email)) {
+                throw new Exception("Email already subscribed", 400);
+            } else {
+                NewsletterFacade::subscribe($request->subscriber_email);
+                return  response()->json([
+                    'message' => 'Email subscribed',
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => $th->getMessage()
+            ], $th->getCode());
+        }
+    }
+
+    public function unsubscribeToNewsletter(Request $request)
+    {
+        $request->validate([
+            'unsubscriber_email' => 'required|email'
+        ]);
+
+        NewsletterFacade::unsubscribe($request->unsubscriber_email);
+        return  response()->json([
+            'message' => 'Email unsubscribed',
+        ]);
     }
 }
