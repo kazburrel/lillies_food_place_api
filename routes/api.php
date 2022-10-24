@@ -58,4 +58,5 @@ Route::group(['middleware' => ['guest']], function () {
     Route::get('/payment/callback', [PaymentController::class, 'handleGatewayCallback']);
     Route::post('subscribe', [UserController::class, 'subscribeToNewsletter']);
     Route::post('unsubscribe', [UserController::class, 'unsubscribeToNewsletter']);
+    Route::post('forgot-password', [UserController::class, 'unsubscribeToNewsletter']);
 });

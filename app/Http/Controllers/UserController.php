@@ -189,19 +189,16 @@ class UserController extends Controller
             'subscriber_email' => 'required|email'
         ]);
         try {
-            if (NewsletterFacade::isSubscribed($request->subscriber_email)) {
-                throw new Exception("Email already subscribed", 400);
-            } else {
-                NewsletterFacade::subscribe($request->subscriber_email);
-                return  response()->json([
-                    'message' => 'Email subscribed',
-                ]);
-            }
+            if (NewsletterFacade::isSubscribed($request->subscriber_email)) throw new Exception("Email already subscribed", 400);
+            NewsletterFacade::subscribe($request->subscriber_email);
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => $th->getMessage()
             ], $th->getCode());
         }
+        return  response()->json([
+            'message' => 'Email subscribed',
+        ]);
     }
 
     public function unsubscribeToNewsletter(Request $request)
