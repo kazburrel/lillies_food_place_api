@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ForgotResetPasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\PaymentController;
@@ -58,5 +59,6 @@ Route::group(['middleware' => ['guest']], function () {
     Route::get('/payment/callback', [PaymentController::class, 'handleGatewayCallback']);
     Route::post('subscribe', [UserController::class, 'subscribeToNewsletter']);
     Route::post('unsubscribe', [UserController::class, 'unsubscribeToNewsletter']);
-    Route::post('forgot-password', [UserController::class, 'unsubscribeToNewsletter']);
+    Route::post('forgot-password', [ForgotResetPasswordController::class, 'forgotPassword'])->name('password.reset');
+    Route::post('reset-password',[ForgotResetPasswordController::class, 'resetPassword']);
 });

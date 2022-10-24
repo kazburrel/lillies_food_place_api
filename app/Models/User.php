@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Notifications\ResetPasswordNotification;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -66,7 +69,9 @@ class User extends Authenticatable
         ];
     }
 
-    // public function tokeens(){
-    //     return $this->hasMany(PersonalAccessToken::class, 'tokenable_id', 'unique_id');
-    // }
+    public function sendPasswordResetNotification($token)
+    {
+        $url = 'https://spa.test/forgot-password?token=' . $token;
+        $this->notify(new ResetPasswordNotification($url));
+    }
 }
