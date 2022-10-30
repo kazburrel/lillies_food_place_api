@@ -1,6 +1,6 @@
 For user
 
-Endpoint for sign up and sign in ✅✅ user has same endoint for Login.
+Endpoint for sign up and sign in  user has same endoint for Login. ✅✅
 Endpoint for mail subscription  ✅✅
 Endpoint for meal order submission ✅✅ 
 Endpoint for profile details ✅✅
