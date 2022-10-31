@@ -74,4 +74,9 @@ class User extends Authenticatable
         $url = 'https://spa.test/forgot-password?token=' . $token;
         $this->notify(new ResetPasswordNotification($url));
     }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(FavVendor::class, 'user', 'unique_id');
+    }
 }

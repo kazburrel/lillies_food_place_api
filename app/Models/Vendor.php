@@ -42,4 +42,9 @@ class Vendor extends Authenticatable
             // 'lecturer' => $this->lecture,
         ];
     }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(FavVendor::class, 'vendor', 'unique_id');
+    }
 }

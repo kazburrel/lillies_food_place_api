@@ -15,7 +15,11 @@ return new class extends Migration
     {
         Schema::create('fav_vendors', function (Blueprint $table) {
             $table->id();
+            $table->string('unique_id');
+            $table->string('vendor');
+            $table->string('user');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

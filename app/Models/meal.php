@@ -25,17 +25,6 @@ class meal extends Model
         'meal_avatar',
         'status'
     ];
-    // public function scopeFilter($query, array $filters)
-    // {
-    //     if ($filters['search'] ?? false) {
-    //         $query->where('meal_name', 'like', '%' . request('search') . '%')
-
-    //             ->orWhere('vendor', 'like', '%' . request('search') . '%')
-
-    //             ->orWhere('unique_id', 'like', '%' . request('search') . '%');
-    //     }
-    // }
-
     public function scopeFilter($query, array $filters)
     {
         if ($filters['search'] ?? false) {

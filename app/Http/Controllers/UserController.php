@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\StorePasswordUpdateRequest;
 use App\Http\Requests\StoreUsersRequest;
 use App\Http\Requests\StoreUsersUpdateRequest;
+use App\Http\Requests\StoreVendorRequest;
 use App\http\Service\SessionService;
 use App\Models\Order;
 use App\Models\Cart_item;
@@ -145,7 +146,7 @@ class UserController extends Controller
                 $meal = meal::find($value['meal_id']);
                 $qty = (int) $value['quantity'];
                 if (!$meal) throw new Exception("The Requested Meal does not exist", 400);
-                if ((int) $meal->quantity < $qty) throw new Exception("Sorry we do not have up to this quantity", 400);
+                // if ((int) $meal->quantity < $qty) throw new Exception("Sorry we do not have up to this quantity", 400);
                 $unique_id = "CART_ITEM" . mt_rand(100000, 999999);
                 OrderItem::create([
                     'unique_id' => $unique_id,
@@ -211,5 +212,9 @@ class UserController extends Controller
         return  response()->json([
             'message' => 'Email unsubscribed',
         ]);
+    }
+
+    public function addFavVendor(StoreVendorRequest $request){
+
     }
 }
