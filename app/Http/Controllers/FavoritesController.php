@@ -14,11 +14,8 @@ class FavoritesController extends Controller
     {
         $user = SessionService::getUser($request);
         if (!$vendor = Vendor::find($vendor)) return abort(401, 'Meal not found.');
-        $favourite = FavVendor::where([
-            'user' => $user->unique_id,
-        ]);
-        // dd($favourite);
-        if ($favourite->exists()) {
+        $favourite = FavVendor::where('vendor', $request->vendor);
+        if ($favourite->count() > 0) {
             $favourite->delete();
             return  response()->json([
                 'message' => 'Vendor deleted successfully',
@@ -33,13 +30,11 @@ class FavoritesController extends Controller
                 'message' => 'Vendor added to favorites successfully',
             ]);
         }
-
-
-
-        // return $this->returnMessageTemplate(true, "Vendor $message Favourites", [
-        //     'vendor' => Vendor::where('unique_id', $vendor)->whereRelation('vendorDets', 'user', $user->unique_id)->first()
-        // ]);
     }
 
-    
+    public function listFavVendors(Request $request)
+    {
+        $user = SessionService::getUser($request);
+        return FavVendor::where('user', $user->unique_id)->with('vendorDets')->get();
+    }
 }

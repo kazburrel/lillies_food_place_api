@@ -23,11 +23,11 @@ class FavVendor extends Model
 
     public function vendorDets()
     {
-        return $this->belongsTo(Vendor::class, 'unique_id', 'vendor');
+        return $this->belongsTo(Vendor::class, 'vendor', 'unique_id');
     }
 
     public function userDets()
     {
-        return $this->belongsTo(User::class, 'unique_id', 'user');
+        return $this->belongsTo(User::class, 'user', 'unique_id');
     }
 }

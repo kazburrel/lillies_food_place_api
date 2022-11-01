@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:user', 'status']], function
     Route::get('user/details', [UserController::class, 'showUserdetails']);
     Route::post('order', [UserController::class, 'addOrder']);
     Route::post('favVendor/{vendor}', [FavoritesController::class, 'addFavVendor']);
+    Route::get('fetch_fav_vendor', [FavoritesController::class, 'listFavVendors']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('order_payment/details', [UserController::class, 'makePaymentDetails']);
     Route::post('update_profile/{id}', [UserController::class, 'profileUpdate']);

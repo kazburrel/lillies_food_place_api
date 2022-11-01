@@ -214,7 +214,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function addFavVendor(StoreVendorRequest $request){
+    // public function addFavVendor(StoreVendorRequest $request){
 
-    }
+    // }
 }
