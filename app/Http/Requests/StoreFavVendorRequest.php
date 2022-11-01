@@ -25,7 +25,7 @@ class StoreFavVendorRequest extends FormRequest
     {
         return [
             'vendor' => 'required',
-            'user' => 'required'
+            
         ];
     }
 }

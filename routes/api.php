@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\ForgotResetPasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MealController;
@@ -27,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth:sanctum', 'role:user', 'status']], function () {
     Route::get('user/details', [UserController::class, 'showUserdetails']);
     Route::post('order', [UserController::class, 'addOrder']);
-    Route::post('favVendor', [UserController::class, 'addFavVendor']);
+    Route::post('favVendor/{vendor}', [FavoritesController::class, 'addFavVendor']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('order_payment/details', [UserController::class, 'makePaymentDetails']);
     Route::post('update_profile/{id}', [UserController::class, 'profileUpdate']);

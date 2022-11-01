@@ -10,6 +10,7 @@ class SessionService {
     public static function getUser($request){
         $bearerToken = $request->bearerToken();
         $personalAccessToken = PersonalAccessToken::findToken($bearerToken);
+        // dd($bearerToken);
         return  $personalAccessToken->tokenable_type::find($personalAccessToken->tokenable_id);
 
     }
