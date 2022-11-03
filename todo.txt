@@ -10,7 +10,7 @@ Endpoint for Update password ✅✅
 Endpoint for User profile Update ✅✅
 Endpoint for Reset password at Login ✅✅
 Endpoint for Single meal Fetch ✅✅
-Endpoint to Add  Fav Meal and Fetch Fav Meal ❌❌
+Endpoint to Add  Fav Meal and Fetch Fav Meal ✅✅
 Endpoint to Add  Fav Vendor and Fetch Fav Vendor ✅✅
 
 For vendor

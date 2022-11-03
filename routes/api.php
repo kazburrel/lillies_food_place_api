@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FavoriteMealController;
 use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\ForgotResetPasswordController;
 use App\Http\Controllers\UserController;
@@ -30,6 +31,8 @@ Route::group(['middleware' => ['auth:sanctum', 'role:user', 'status']], function
     Route::post('order', [UserController::class, 'addOrder']);
     Route::post('favVendor/{vendor}', [FavoritesController::class, 'addFavVendor']);
     Route::get('fetch_fav_vendor', [FavoritesController::class, 'listFavVendors']);
+    Route::post('favMeal/{meal}', [FavoriteMealController::class, 'addFavMeal']);
+    Route::get('fetch_fav_meal', [FavoriteMealController::class, 'listFavMeal']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('order_payment/details', [UserController::class, 'makePaymentDetails']);
     Route::post('update_profile/{id}', [UserController::class, 'profileUpdate']);
@@ -63,5 +66,5 @@ Route::group(['middleware' => ['guest']], function () {
     Route::post('subscribe', [UserController::class, 'subscribeToNewsletter']);
     Route::post('unsubscribe', [UserController::class, 'unsubscribeToNewsletter']);
     Route::post('forgot-password', [ForgotResetPasswordController::class, 'forgotPassword'])->name('password.reset');
-    Route::post('reset-password',[ForgotResetPasswordController::class, 'resetPassword']);
+    Route::post('reset-password', [ForgotResetPasswordController::class, 'resetPassword']);
 });

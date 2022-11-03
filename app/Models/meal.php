@@ -9,7 +9,7 @@ use Laravel\Scout\Searchable;
 
 class meal extends Model
 {
-    use HasFactory, SoftDeletes,Searchable;
+    use HasFactory, SoftDeletes, Searchable;
 
     protected $primaryKey = 'unique_id';
     public $incrementing = false;
@@ -42,9 +42,13 @@ class meal extends Model
         ];
     }
 
-    public function vendordets(){
-        return $this->belongsTo( Vendor::class, 'vendor', 'unique_id');
+    public function vendordets()
+    {
+        return $this->belongsTo(Vendor::class, 'vendor', 'unique_id');
+    }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(FavVendor::class, 'user', 'unique_id');
     }
 }
-
-

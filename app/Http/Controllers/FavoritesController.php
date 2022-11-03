@@ -13,7 +13,7 @@ class FavoritesController extends Controller
     public function addFavVendor(StoreFavVendorRequest $request, $vendor)
     {
         $user = SessionService::getUser($request);
-        if (!$vendor = Vendor::find($vendor)) return abort(401, 'Meal not found.');
+        if (!$vendor = Vendor::find($vendor)) return abort(401, 'Vendor not found.');
         $favourite = FavVendor::where('vendor', $request->vendor);
         if ($favourite->count() > 0) {
             $favourite->delete();
