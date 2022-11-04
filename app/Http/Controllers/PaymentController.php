@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\http\Service\SessionService;
+use App\Models\Order;
 use Illuminate\Support\Facades\Redirect;
 use Unicodeveloper\Paystack\Facades\Paystack;
 
@@ -17,8 +19,27 @@ class PaymentController extends Controller
      * Redirect the User to Paystack Payment Page
      * @return Url
      */
-    public function redirectToGateway()
+    public function redirectToGateway(Request $request)
     {
+        $user = SessionService::getUser($request);
+        $data = $request->all();
+        $request->validate($data, [
+            'amount'  => 'required',            
+        ]);
+
+        $reference = Paystack::genTranxRef();
+        $trans_id = "TRANS" . mt_rand(100000, 999999);
+        // $description = 'Payment for'.$user->name;
+
+        $data = [
+            "amount" => $data['amount'] * 100,
+            "reference" => $reference,
+            "email" => $user->email,
+            "currency" => "NGN",
+            "orderID" => $request->order_id,
+            
+            // "description" => $description,
+        ];
 
         try{
             return Paystack::getAuthorizationUrl()->redirectNow();
