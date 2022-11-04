@@ -61,8 +61,8 @@ Route::group(['middleware' => ['guest']], function () {
     Route::get('all_meals', [MealController::class, 'showMeal']);
     Route::get('mealsSearch/{id}', [MealController::class, 'searchMeal']);
     Route::post('singleMealsSearch', [MealController::class, 'fetchSingleMeal']);
-    Route::post('/pay', [PaymentController::class, 'redirectToGateway'])->name('pay');
-    Route::get('/payment/callback', [PaymentController::class, 'handleGatewayCallback']);
+    Route::post('/pay', [PaymentController::class, 'initiateTransactionPayment'])->name('pay');
+    Route::get('/payment/callback', [PaymentController::class, 'handleGatewayCallback'])->name('paymentCallback');
     Route::post('subscribe', [UserController::class, 'subscribeToNewsletter']);
     Route::post('unsubscribe', [UserController::class, 'unsubscribeToNewsletter']);
     Route::post('forgot-password', [ForgotResetPasswordController::class, 'forgotPassword'])->name('password.reset');

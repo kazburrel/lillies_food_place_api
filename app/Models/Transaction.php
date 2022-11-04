@@ -21,4 +21,6 @@ class Transaction extends Model
         'type_id',
         'transaction_amount',
     ];
+
+    
 }
