@@ -139,6 +139,7 @@ class UserController extends Controller
             'user' => $user,
             'unique_id' => $unique_id,
             'meal' => json_encode($dish),
+            'status' => 'Pending'
         ])->all());
         try {
             foreach ($request->meal as $key => $value) {
@@ -160,7 +161,6 @@ class UserController extends Controller
                 ]);
                 $total = OrderItem::where('cart_id', $cart->unique_id)->sum('sub_total');
                 $order = Order::find($cart->unique_id);
-                // dd($order);
                 $order->update([
                     'total_price' => $total
                 ]);

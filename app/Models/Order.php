@@ -23,5 +23,6 @@ class Order extends Model
         'receiver_phone',
         'meal',
         'total_price',
+        'status'
     ];
 }

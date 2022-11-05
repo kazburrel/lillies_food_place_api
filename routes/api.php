@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:user', 'status']], function
     Route::get('order_payment/details', [UserController::class, 'makePaymentDetails']);
     Route::post('update_profile/{id}', [UserController::class, 'profileUpdate']);
     Route::post('update_password', [UserController::class, 'passwordUpdate']);
+    Route::post('/pay', [PaymentController::class, 'initiateTransactionPayment'])->name('pay');
 });
 
 // VENDORS
@@ -61,10 +62,9 @@ Route::group(['middleware' => ['guest']], function () {
     Route::get('all_meals', [MealController::class, 'showMeal']);
     Route::get('mealsSearch/{id}', [MealController::class, 'searchMeal']);
     Route::post('singleMealsSearch', [MealController::class, 'fetchSingleMeal']);
-    Route::post('/pay', [PaymentController::class, 'initiateTransactionPayment'])->name('pay');
-    Route::get('/payment/callback', [PaymentController::class, 'handleGatewayCallback'])->name('paymentCallback');
     Route::post('subscribe', [UserController::class, 'subscribeToNewsletter']);
     Route::post('unsubscribe', [UserController::class, 'unsubscribeToNewsletter']);
     Route::post('forgot-password', [ForgotResetPasswordController::class, 'forgotPassword'])->name('password.reset');
     Route::post('reset-password', [ForgotResetPasswordController::class, 'resetPassword']);
+    Route::get('/payment/callback', [PaymentController::class, 'handleGatewayCallback'])->name('paymentCallback');
 });

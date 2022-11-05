@@ -29,20 +29,20 @@ class PaymentController extends Controller
             'order_id'  => 'required|exists:orders,unique_id',
         ]);
         $getAmount = Order::where('unique_id', $request->order_id)->first();
-        // $amount = $getAmount->amount;
+        //  dd($getAmount->total_price);
         $reference = Paystack::genTranxRef();
         $trans_id = "TRANS" . mt_rand(100000, 999999);
-        Transaction::create($request->safe()->merge([
+        Transaction::create([
             'unique_id' => $trans_id,
             'user' => $user->unique_id,
             'status' => 'Pending',
             'transaction_type' => 'Order',
             'type_id' => $request->order_id,
-            'transaction_amount' => $getAmount->amount,
-        ])->all());
+            'transaction_amount' => $getAmount->total_price,
+        ]);
 
         $data = [
-            "amount" => $getAmount->amount * 100,
+            "amount" => $getAmount->total_price * 100,
             "reference" => $trans_id,
             "email" => $user->email,
             "currency" => "NGN",
@@ -83,24 +83,33 @@ class PaymentController extends Controller
             "Content-Type" => "application/json",
         ])->get('https://api.paystack.co/transaction/verify/' . $request->reference);
 
-        if ($response['status'] === 'true') {
+        if ($response['data']['status'] === 'success') {
             $transaction = Transaction::find($request->reference);
-            $transaction->update($request->safe()->merge([
+            $transaction->update([
                 'status' => 'Successful',
-            ])->all());
+            ]);
+            $order = Order::where('unique_id', $transaction->type_id)->first();
+            // dd($order);
+            $order->update([
+                'status' => 'Paid',
+            ]);
             return response()->json([
-                'Payment' => 'Successful',
+                'status' => true,
+                'payment' => 'Successful',
             ]);
         } else {
             $transaction = Transaction::find($request->reference);
-            $transaction->update($request->safe()->merge([
+            $transaction->update([
                 'status' => 'Failed',
-            ])->all());
+            ]);
+            $order = Order::where('unique_id', $transaction->type_id)->first();
+            $order->update([
+                'status' => 'Failed',
+            ]);
             return response()->json([
-                'Payment' => 'Failed',
+                'status' => false,
+                'payment' => 'Failed',
             ], 400);
         }
-
-        return json_decode($response, true);
     }
 }
