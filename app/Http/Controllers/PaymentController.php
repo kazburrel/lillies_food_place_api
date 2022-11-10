@@ -29,7 +29,6 @@ class PaymentController extends Controller
             'order_id'  => 'required|exists:orders,unique_id',
         ]);
         $getAmount = Order::where('unique_id', $request->order_id)->first();
-        //  dd($getAmount->total_price);
         $reference = Paystack::genTranxRef();
         $trans_id = "TRANS" . mt_rand(100000, 999999);
         Transaction::create([
