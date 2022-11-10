@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class ViewController extends Controller
 {
@@ -53,10 +54,17 @@ class ViewController extends Controller
 
     public function showOrders()
     {
-
         $orders = Order::search(request(key: 'search'))->get();
         $orders = $orders->sortBy('created_at');
-        // dd($orders);
+        $check = Order::all();
+        foreach ($check as $value) {
+        //    foreach ($value as $one_meal) {
+        //     $decode = json_decode($one_meal);
+        //     return $decode;
+        //    }
+        }
+
+        dd(json_decode($value->meal));
         return view('admin.all_orders', ['orders' => $orders]); 
     }
 }
