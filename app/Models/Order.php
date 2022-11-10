@@ -25,4 +25,21 @@ class Order extends Model
         'total_price',
         'status'
     ];
+
+    public function toSearchableArray()
+    {
+        return [
+            'unique_id' => $this->unique_id,
+            'receiver_name' => $this->receiver_name,
+            'receiver_address' => $this->receiver_name,
+            'receiver_phone' => $this->receiver_phone,
+            'meal' => $this->meal,
+            'status' => $this->status,
+        ];
+    }
+
+    public function customerDetails()
+    {
+        return $this->belongsTo(User::class, 'user', 'unique_id');
+    }
 }

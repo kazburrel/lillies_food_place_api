@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\meal;
+use App\Models\Order;
 use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
@@ -48,5 +49,14 @@ class ViewController extends Controller
         // $meals::with('vendordets');
         // dd($meals);
         return view('admin.all_meals', ['meals' => $meals]);
+    }
+
+    public function showOrders()
+    {
+
+        $orders = Order::search(request(key: 'search'))->get();
+        $orders = $orders->sortBy('created_at');
+        // dd($orders);
+        return view('admin.all_orders', ['orders' => $orders]); 
     }
 }

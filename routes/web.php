@@ -30,6 +30,7 @@ Route::prefix('/admin')->middleware([])->group(function () {
     Route::post('add_users', [AdminController::class, 'registerUser']);
     Route::delete('all_users/{user}', [AdminController::class, 'destroyUser'])->name('userDestroy');
     Route::get('/all_users/{user}', [AdminController::class, 'blockUser']);
+    Route::get('/all_orders', [ViewController::class, 'showOrders']);
     // Route::post('/pay', [PaymentController::class, 'redirectToGateway'])->name('pay');
     // Route::get('/payment/callback', [PaymentController::class, 'handleGatewayCallback']);
 

@@ -173,4 +173,6 @@ class AdminController extends Controller
         Alert::success('Meal updated successfully');
         return redirect()->back();
     }
+
+    
 }

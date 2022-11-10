@@ -100,7 +100,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="/admin/all_students">
+                    <a class="menu-link" href="/admin/all_orders">
                         <span class="menu-bullet">
                             <span class="bullet bullet-dot"></span>
                         </span>
@@ -108,7 +108,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="/admin/add_student">
+                    <a class="menu-link" href="/admin/add_order">
                         <span class="menu-bullet">
                             <span class="bullet bullet-dot"></span>
                         </span>
