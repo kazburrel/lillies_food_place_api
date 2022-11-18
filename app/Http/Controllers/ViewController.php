@@ -56,15 +56,18 @@ class ViewController extends Controller
     {
         $orders = Order::search(request(key: 'search'))->get();
         $orders = $orders->sortBy('created_at');
-        $check = Order::all();
-        foreach ($check as $value) {
-        //    foreach ($value as $one_meal) {
-        //     $decode = json_decode($one_meal);
-        //     return $decode;
-        //    }
-        }
-
-        dd(json_decode($value->meal));
+        // foreach ($orders as $key => $value) {
+        //     $decode = json_decode($value->meal);
+        //     $meals = meal::find($decode);
+        //     dd($meals);
+        //     // foreach ($decode as $key => $meal) {
+        //     //     $meal_name = meal::where('unique_id', $meal)->get();
+        //     //     // dd($meal_name);
+        //     // }
+        // }
+        // $dish =  Arr::map($orders->meal, function ($map, $key) {
+        
+        // });
         return view('admin.all_orders', ['orders' => $orders]); 
     }
 }

@@ -127,11 +127,11 @@ class UserController extends Controller
 
     public function addOrder(StoreCartRequest $request)
     {
-        // dd('hi');
-
+        // dd($request->all());
         $getuser = SessionService::getUser($request);
         $user = $getuser->unique_id;
         $unique_id = "ORDER" . mt_rand(100000, 999999);
+
         $dish =  Arr::map($request->meal, function ($value, $key) {
             return $value['meal_id'];
         });
@@ -168,7 +168,7 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => $th->getMessage()
-            ], $th->getCode());
+            ], 400);
         }
 
         return  response()->json([

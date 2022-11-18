@@ -66,7 +66,7 @@
                                 <th class="text-center min-w-125px">RECEIVER'S NAME</th>
                                 <th class="text-center min-w-125px">RECEIVER'S ADDRESS</th>
                                 <th class="text-center min-w-100px">RECEIVER'S PHONE</th>
-                                <th class="text-center min-w-100px">MEAL</th>
+                                {{-- <th class="text-center min-w-100px">MEAL</th> --}}
                                 <th class="text-center min-w-125px">TOTAL PRICE</th>
                                 <th class="text-center min-w-100px">STATUS</th>
                             </tr>
@@ -101,9 +101,9 @@
                                     <td class="text-center border border-2">
                                         <span>{{ $order->receiver_phone }}</span>
                                     </td>
-                                    <td class="text-center border border-2">
+                                    {{-- <td class="text-center border border-2">
                                         <span>{{ $order->meal }}</span>
-                                    </td>
+                                    </td> --}}
                                     <td class="text-center border border-2">
                                         <span>{{ $order->total_price }}</span>
                                     </td>
