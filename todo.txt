@@ -13,6 +13,7 @@ Endpoint for Single meal Fetch ✅✅
 Endpoint to Add  Fav Meal and Fetch Fav Meal ✅✅
 Endpoint to Add  Fav Vendor and Fetch Fav Vendor ✅✅
 Endpoint of all meal should have vendors"s name
+add view meal details in the admin side for each meal on order table
 
 For vendor
 
