@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Middleware;
-
 use App\http\Service\SessionService;
 use App\Models\Admin;
 use App\Models\User;
@@ -20,7 +19,7 @@ class CheckUserRole
      */
     public function handle(Request $request, Closure $next, $role)
     {
-
+        
         $user = SessionService::getUser($request);
 
         // dd($user->type !== 'user');

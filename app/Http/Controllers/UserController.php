@@ -98,6 +98,7 @@ class UserController extends Controller
 
     public function showUserdetails(Request $request)
     {
+        
         $user = SessionService::getUser($request);
         return $user;
     }
