@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:user', 'status']], function
     Route::post('update_profile/{id}', [UserController::class, 'profileUpdate']);
     Route::post('update_password', [UserController::class, 'passwordUpdate']);
     Route::post('/pay', [PaymentController::class, 'initiateTransactionPayment'])->name('pay');
+    Route::get('all_orders', [UserController::class, 'allOrders']);
 });
 
 // VENDORS

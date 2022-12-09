@@ -94,11 +94,13 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
         }
-       
         $token = $request->user()->createToken( $this->getUserTokName($guard))->plainTextToken;
+        $personalAccessToken = PersonalAccessToken::findToken($token);
+        $type = $personalAccessToken->name;
         return  response()->json([
             'message' => 'You are now logged in',
-            'token' => $token
+            'token' => $token,
+            'type' => $type
         ]);
     }
 
@@ -115,11 +117,11 @@ class AuthController extends Controller
     private function getUserTokName($guard)
     {
         if ($guard === 'vendor') {
-           return 'vendorTok';
+           return 'vendor';
         } elseif ($guard === 'user') {
-           return 'userTok';
+           return 'user';
         } else {
-           return 'adminTok';
+           return 'admin';
         }
     }
 
@@ -132,5 +134,6 @@ class AuthController extends Controller
             }
         }
         return $guard;
-    }
+    } 
+    
 }
